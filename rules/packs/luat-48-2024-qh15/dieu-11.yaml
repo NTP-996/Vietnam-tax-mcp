@@ -1,0 +1,21 @@
+# UNVERIFIED (verified: false) — from legal/corpus/luat-48-2024-qh15/dieu-11.md (Công báo text),
+# not yet signed off by the reviewing accountant. The deduction method is a formula, not a rate:
+# Điều 11 khoản 1 điểm a — VAT payable = output VAT − deductible input VAT. The row carries the
+# citation the tinh_thue_gtgt tool returns; the carry-forward of a negative result is the engine's
+# reading and is pending the reviewing accountant's confirmation.
+kind: rate
+legal_doc: 'Luật 48/2024/QH15'
+article: 'Điều 11'
+title: 'Phương pháp khấu trừ thuế'
+version: gtgt-khau-tru@2025-07
+regime: GTGT
+effective_from: 2025-07-01
+effective_to: null
+verified: false
+verified_by: null
+rates:
+  - id: khau-tru
+    citation: 'Luật 48/2024/QH15, Điều 11, khoản 1, điểm a — effective 2025-07-01'
+    corpus: 'luat-48-2024-qh15/dieu-11'
+    tax: gtgt
+    method: khau_tru

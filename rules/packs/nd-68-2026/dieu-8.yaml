@@ -1,0 +1,63 @@
+# UNVERIFIED (verified: false) — HKD filing deadlines, from legal/corpus/nd-68-2026/dieu-8.md
+# (NĐ 68/2026/NĐ-CP Điều 8 khoản 3), not yet signed off by the reviewing accountant.
+#
+# - điểm a: khai theo quý — ngày cuối cùng của tháng đầu tiên của quý tiếp theo.
+# - điểm b: khai theo tháng — ngày thứ 20 của tháng tiếp theo (except Điều 18 khoản 1, the
+#   transitional months of 2026, which this pack does not cover).
+# - điểm c: quyết toán thuế TNCN theo năm — ngày 31 tháng 3 của năm dương lịch tiếp theo.
+# - NĐ 252/2026/NĐ-CP Điều 10 khoản 9 sends HKD deadlines here; the holiday shift is NĐ 252 Điều 3
+#   khoản 7. Because that shift rule is in force from 2026-07-01, this pack starts on 2026-07-01
+#   although NĐ 68 is in force from 2026-03-05: earlier periods answer no_match until the
+#   reviewing accountant confirms the shift rule that applied before (NĐ 126/2020, not in the corpus).
+# - Holidays: none listed (the official notices are not in the corpus); weekends shift.
+kind: deadline
+legal_doc: 'NĐ 68/2026/NĐ-CP'
+article: 'Điều 8'
+title: 'Thời hạn nộp hồ sơ khai thuế của hộ kinh doanh, cá nhân kinh doanh'
+version: hkd-deadline@2026-07
+regime: QLT
+effective_from: 2026-07-01
+effective_to: null
+verified: false
+verified_by: null
+deadlines:
+  - id: hkd-gtgt-quy
+    citation: 'NĐ 68/2026/NĐ-CP, Điều 8, khoản 3, điểm a — effective 2026-03-05'
+    corpus: 'nd-68-2026/dieu-8'
+    tax: gtgt
+    entity_types: [hkd]
+    period: quarter
+    due: {rule: last_day_of_month, months_after_period: 1}
+  - id: hkd-gtgt-thang
+    citation: 'NĐ 68/2026/NĐ-CP, Điều 8, khoản 3, điểm b — effective 2026-03-05'
+    corpus: 'nd-68-2026/dieu-8'
+    tax: gtgt
+    entity_types: [hkd]
+    period: month
+    due: {rule: day_of_month, months_after_period: 1, day: 20}
+  - id: hkd-tncn-quy
+    citation: 'NĐ 68/2026/NĐ-CP, Điều 8, khoản 3, điểm a — effective 2026-03-05'
+    corpus: 'nd-68-2026/dieu-8'
+    tax: tncn
+    entity_types: [hkd]
+    period: quarter
+    due: {rule: last_day_of_month, months_after_period: 1}
+  - id: hkd-tncn-thang
+    citation: 'NĐ 68/2026/NĐ-CP, Điều 8, khoản 3, điểm b — effective 2026-03-05'
+    corpus: 'nd-68-2026/dieu-8'
+    tax: tncn
+    entity_types: [hkd]
+    period: month
+    due: {rule: day_of_month, months_after_period: 1, day: 20}
+  - id: hkd-tncn-quyet-toan-nam
+    citation: 'NĐ 68/2026/NĐ-CP, Điều 8, khoản 3, điểm c — effective 2026-03-05'
+    corpus: 'nd-68-2026/dieu-8'
+    tax: tncn
+    entity_types: [hkd]
+    period: year
+    due: {rule: day_of_month, months_after_period: 3, day: 31}
+holiday_shift:
+  citation: 'NĐ 252/2026/NĐ-CP, Điều 3, khoản 7 — effective 2026-07-01'
+  corpus: 'nd-252-2026/dieu-3'
+  rule: next_working_day
+  holidays: []

@@ -1,0 +1,10 @@
+# The image needs the Go sources, rules/ and the corpus; the originals stay out.
+.git
+.github
+.env
+.env.*
+bin
+docs
+scripts
+legal/originals
+**/__pycache__

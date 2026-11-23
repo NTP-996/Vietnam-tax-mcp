@@ -1,0 +1,39 @@
+---
+doc: "nd-181-2025"
+number: "181/2025/NĐ-CP"
+article: 3
+title: "Người nộp thuế"
+chapter: "Chương I NHỮNG QUY ĐỊNH CHUNG"
+effective_from: 2025-07-01
+effective_to: null
+source_url: "https://congbaocdn.chinhphu.vn/CongBaoCP/VanBan/2025/7/45379/57344-1-2025899-900181-2025-nd-cp.pdf"
+sha256: "48f1b382c71e84b36d8695cbcf151bd61d3ce7db862261ccee917cc7d9909d1d"
+verified: false
+verified_by: null
+---
+
+# Điều 3. Người nộp thuế
+
+Người nộp thuế thực hiện theo quy định tại Điều 4 Luật Thuế giá trị gia tăng.
+
+Một số trường hợp được quy định chi tiết như sau:
+
+1. Người nộp thuế quy định tại khoản 1 Điều 4 Luật Thuế giá trị gia tăng bao gồm:
+
+a) Các tổ chức được thành lập và đăng ký kinh doanh theo Luật Doanh nghiệp, Luật Hợp tác xã và pháp luật chuyên ngành khác.
+
+b) Các tổ chức kinh tế của tổ chức chính trị, tổ chức chính trị - xã hội, tổ chức xã hội, tổ chức xã hội - nghề nghiệp, đơn vị vũ trang nhân dân, tổ chức sự nghiệp và các tổ chức khác.
+
+c) Các doanh nghiệp có vốn đầu tư nước ngoài và bên nước ngoài tham gia hợp tác kinh doanh theo Luật Đầu tư; các tổ chức, cá nhân nước ngoài hoạt động kinh doanh ở Việt Nam nhưng không thành lập pháp nhân tại Việt Nam.
+
+d) Doanh nghiệp chế xuất thực hiện các hoạt động kinh doanh khác theo quy định của pháp luật về quản lý khu công nghiệp và khu kinh tế.
+
+đ) Hộ, cá nhân sản xuất, kinh doanh; nhóm người kinh doanh độc lập.
+
+e) Tổ chức, cá nhân khác có hoạt động sản xuất, kinh doanh.
+
+2. Người nộp thuế quy định tại khoản 4, khoản 5 Điều 4 Luật Thuế giá trị gia tăng gồm:
+
+a) Nhà cung cấp nước ngoài không có cơ sở thường trú tại Việt Nam có hoạt động kinh doanh thương mại điện tử, kinh doanh dựa trên nền tảng số với tổ chức, cá nhân tại Việt Nam (sau đây gọi là nhà cung cấp nước ngoài); tổ chức là nhà quản lý nền tảng số nước ngoài thực hiện khấu trừ, nộp thay nghĩa vụ thuế phải nộp của nhà cung cấp nước ngoài; tổ chức kinh doanh tại Việt Nam áp dụng phương pháp tính thuế giá trị gia tăng là phương pháp khấu trừ thuế mua dịch vụ của nhà cung cấp nước ngoài không có cơ sở thường trú tại Việt Nam thông qua kênh thương mại điện tử hoặc các nền tảng số thực hiện khấu trừ, nộp thay nghĩa vụ thuế phải nộp của nhà cung cấp nước ngoài. Việc thực hiện khấu trừ, nộp thay nghĩa vụ thuế phải nộp của nhà cung cấp nước ngoài của người nộp thuế quy định tại điểm này thực hiện theo quy định của pháp luật về quản lý thuế.
+
+b) Người nộp thuế quy định tại khoản 5 Điều 4 Luật Thuế giá trị gia tăng là tổ chức quản lý sàn giao dịch thương mại điện tử, tổ chức quản lý nền tảng số có chức năng thanh toán thực hiện theo quy định của Nghị định số 117/2025/NĐ-CP ngày 09 tháng 6 năm 2025 của Chính phủ quy định quản lý thuế đối với hoạt động kinh doanh trên nền tảng thương mại điện tử, nền tảng số của hộ, cá nhân.

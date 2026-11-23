@@ -1,0 +1,31 @@
+---
+doc: "luat-48-2024-qh15"
+number: "48/2024/QH15"
+article: 13
+title: "Các hành vi bị nghiêm cấm trong khấu trừ, hoàn thuế"
+chapter: "Chương III KHẤU TRỪ, HOÀN THUẾ"
+effective_from: 2025-07-01
+effective_to: null
+source_url: "https://congbaocdn.chinhphu.vn/CongBaoCP/VanBan/2024/11/43576/53720-1-20241527-152848-2024-qh15.pdf"
+sha256: "8be4caa345b42bce86386831da0bf4a9ed2bebbc54b471535c758431a5277569"
+verified: false
+verified_by: null
+---
+
+# Điều 13. Các hành vi bị nghiêm cấm trong khấu trừ, hoàn thuế
+
+1. Mua, cho, bán, tổ chức quảng cáo, môi giới mua, bán hóa đơn.
+
+2. Tạo lập giao dịch mua, bán hàng hóa, cung cấp dịch vụ không có thật hoặc giao dịch không đúng quy định của pháp luật.
+
+3. Lập hóa đơn bán hàng hóa, cung cấp dịch vụ trong thời gian tạm ngừng hoạt động kinh doanh, trừ trường hợp lập hóa đơn giao cho khách hàng để thực hiện các hợp đồng đã ký trước ngày thông báo tạm ngừng kinh doanh.
+
+4. Sử dụng hóa đơn, chứng từ không hợp pháp, sử dụng không hợp pháp hóa đơn, chứng từ theo quy định của Chính phủ.
+
+5. Không chuyển dữ liệu hóa đơn điện tử về cơ quan thuế theo quy định.
+
+6. Làm sai lệch, sử dụng sai mục đích, truy cập trái phép, phá hủy hệ thống thông tin về hóa đơn, chứng từ.
+
+7. Đưa, nhận, môi giới hối lộ hoặc thực hiện các hành vi khác liên quan đến hóa đơn, chứng từ để được khấu trừ thuế, hoàn thuế, chiếm đoạt tiền thuế, trốn thuế giá trị gia tăng.
+
+8. Thông đồng, bao che; móc nối giữa công chức quản lý thuế, cơ quan quản lý thuế và cơ sở kinh doanh, người nhập khẩu, giữa các cơ sở kinh doanh, người nhập khẩu trong việc sử dụng hóa đơn, chứng từ không hợp pháp, sử dụng không hợp pháp hóa đơn, chứng từ để được khấu trừ thuế, hoàn thuế, chiếm đoạt tiền thuế, trốn thuế giá trị gia tăng.

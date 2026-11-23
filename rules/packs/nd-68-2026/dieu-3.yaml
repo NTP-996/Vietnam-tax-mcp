@@ -1,0 +1,67 @@
+# UNVERIFIED (verified: false) — the household-business (HKD) rates, written from the corpus and
+# not yet signed off by the reviewing accountant.
+#
+# - VAT: NĐ 68/2026/NĐ-CP Điều 3 khoản 2 (legal/corpus/nd-68-2026/dieu-3.md) puts an HKD above the
+#   threshold on the direct method on revenue and takes the percentages from Luật 48/2024/QH15;
+#   the figures are Luật 48/2024/QH15 Điều 12 khoản 2 điểm b1–b4
+#   (legal/corpus/luat-48-2024-qh15/dieu-12.md), which names hộ, cá nhân sản xuất, kinh doanh in
+#   điểm a2.
+# - Threshold: NĐ 68/2026 Điều 3 khoản 1 and Điều 4 khoản 1 set 500 triệu đồng; NĐ 141/2026/NĐ-CP
+#   Điều 1 khoản 1 (legal/corpus/nd-141-2026/dieu-1.md) replaces it with 01 tỷ đồng, and NĐ 141
+#   Điều 3 puts that in force from 2026-01-01.
+# - PIT (tncn): NĐ 68/2026 Điều 4 khoản 2 and 5 take the PIT percentages from Điều 7 of Luật Thuế
+#   thu nhập cá nhân 109/2025/QH15, which is NOT in the corpus — so this pack has no tncn row and
+#   the calculator reports PIT as not available rather than state a rate.
+#
+# effective_from 2026-01-01 is the engine's reading (NĐ 68 is in force from 2026-03-05, but NĐ 141
+# Điều 3 and NĐ 68 Điều 18 khoản 1 apply the regime to the 2026 tax year from January); the reviewing
+# accountant confirms it. Periods before 2026 (the khoán era) have no pack and answer no_match.
+kind: rate
+legal_doc: 'NĐ 68/2026/NĐ-CP'
+article: 'Điều 3'
+title: 'Thuế giá trị gia tăng của hộ kinh doanh, cá nhân kinh doanh — tỷ lệ % trên doanh thu và ngưỡng doanh thu'
+version: hkd-rate@2026-01
+regime: HKD
+effective_from: 2026-01-01
+effective_to: null
+verified: false
+verified_by: null
+rates:
+  - id: hkd-gtgt-phan-phoi
+    citation: 'Luật 48/2024/QH15, Điều 12, khoản 2, điểm b1 — effective 2025-07-01 (áp dụng theo NĐ 68/2026/NĐ-CP, Điều 3, khoản 2 — effective 2026-03-05)'
+    corpus: 'luat-48-2024-qh15/dieu-12'
+    tax: gtgt
+    method: ty_le_doanh_thu
+    activity_group: phan_phoi
+    activity_label: 'Phân phối, cung cấp hàng hóa'
+    rate_bp: 100
+  - id: hkd-gtgt-dich-vu
+    citation: 'Luật 48/2024/QH15, Điều 12, khoản 2, điểm b2 — effective 2025-07-01 (áp dụng theo NĐ 68/2026/NĐ-CP, Điều 3, khoản 2 — effective 2026-03-05)'
+    corpus: 'luat-48-2024-qh15/dieu-12'
+    tax: gtgt
+    method: ty_le_doanh_thu
+    activity_group: dich_vu
+    activity_label: 'Dịch vụ, xây dựng không bao thầu nguyên vật liệu'
+    rate_bp: 500
+  - id: hkd-gtgt-san-xuat
+    citation: 'Luật 48/2024/QH15, Điều 12, khoản 2, điểm b3 — effective 2025-07-01 (áp dụng theo NĐ 68/2026/NĐ-CP, Điều 3, khoản 2 — effective 2026-03-05)'
+    corpus: 'luat-48-2024-qh15/dieu-12'
+    tax: gtgt
+    method: ty_le_doanh_thu
+    activity_group: san_xuat_van_tai
+    activity_label: 'Sản xuất, vận tải, dịch vụ có gắn với hàng hóa, xây dựng có bao thầu nguyên vật liệu'
+    rate_bp: 300
+  - id: hkd-gtgt-khac
+    citation: 'Luật 48/2024/QH15, Điều 12, khoản 2, điểm b4 — effective 2025-07-01 (áp dụng theo NĐ 68/2026/NĐ-CP, Điều 3, khoản 2 — effective 2026-03-05)'
+    corpus: 'luat-48-2024-qh15/dieu-12'
+    tax: gtgt
+    method: ty_le_doanh_thu
+    activity_group: khac
+    activity_label: 'Hoạt động kinh doanh khác'
+    rate_bp: 200
+thresholds:
+  - id: hkd-nguong-doanh-thu
+    citation: 'NĐ 141/2026/NĐ-CP, Điều 1, khoản 1 (sửa NĐ 68/2026/NĐ-CP, Điều 3, khoản 1 và Điều 4, khoản 1) — effective 2026-01-01'
+    corpus: 'nd-141-2026/dieu-1'
+    name: annual_revenue_exempt
+    amount_minor: 1000000000

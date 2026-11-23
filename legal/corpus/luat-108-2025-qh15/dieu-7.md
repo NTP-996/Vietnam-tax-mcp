@@ -1,0 +1,37 @@
+---
+doc: "luat-108-2025-qh15"
+number: "108/2025/QH15"
+article: 7
+title: "Bảo mật, công khai thông tin người nộp thuế"
+chapter: "Chương I QUY ĐỊNH CHUNG"
+effective_from: 2026-07-01
+effective_to: null
+source_url: "https://congbaocdn.chinhphu.vn/180507251028987904/2026/1/24/108signed-17692413914281416017170.pdf"
+sha256: "40587b11e57220c69abc6f65008f016bd780254f28e0079aa33b71a57a2c269d"
+verified: false
+verified_by: null
+---
+
+# Điều 7. Bảo mật, công khai thông tin người nộp thuế
+
+1. Cơ quan quản lý thuế, công chức quản lý thuế, người đã từng là công chức quản lý thuế, cơ quan cung cấp, trao đổi thông tin người nộp thuế, tổ chức kinh doanh dịch vụ làm thủ tục về thuế (sau đây gọi là đại lý thuế), tổ chức kinh doanh dịch vụ làm thủ tục hải quan (sau đây gọi là đại lý làm thủ tục hải quan) phải bảo mật thông tin người nộp thuế, trừ trường hợp cơ quan quản lý thuế cung cấp, công khai thông tin người nộp thuế quy định tại khoản 2 và khoản 3 Điều này.
+
+2. Cơ quan quản lý thuế cung cấp thông tin người nộp thuế trong các trường hợp sau:
+
+a) Cung cấp cho cơ quan điều tra, Viện kiểm sát, Tòa án, cơ quan thanh tra, Kiểm toán nhà nước, cơ quan quản lý khác của nhà nước khi có yêu cầu bằng văn bản để phục vụ hoạt động tố tụng, thanh tra, kiểm tra, kiểm toán theo quy định của pháp luật;
+
+b) Cung cấp cho cơ quan nhà nước có thẩm quyền khác khi có yêu cầu bằng văn bản theo quy định của luật;
+
+c) Cung cấp cho cơ quan quản lý thuế nước ngoài phù hợp với điều ước quốc tế về thuế, thỏa thuận quốc tế về thuế mà nước Cộng hòa xã hội chủ nghĩa Việt Nam là thành viên hoặc là bên ký kết.
+
+3. Cơ quan quản lý thuế được công khai thông tin người nộp thuế trong các trường hợp sau:
+
+a) Trốn thuế, khoản thu khác; chây ỳ không nộp tiền thuế, khoản thu khác, tiền chậm nộp, tiền phạt đúng thời hạn; nợ tiền thuế, khoản thu khác, tiền chậm nộp, tiền phạt;
+
+b) Vi phạm pháp luật về thuế làm ảnh hưởng đến quyền lợi và nghĩa vụ nộp thuế của tổ chức, cá nhân khác;
+
+c) Không thực hiện yêu cầu của cơ quan quản lý thuế theo quy định của pháp luật.
+
+4. Cơ quan, tổ chức, cá nhân được cơ quan quản lý thuế cung cấp thông tin theo các trường hợp quy định tại khoản 2 Điều này, cơ quan quản lý thuế, các cơ quan nhà nước khác, tổ chức có liên quan trong nước và ngoài nước khi thực hiện nhiệm vụ, trách nhiệm cung cấp, chia sẻ, trao đổi thông tin người nộp thuế phục vụ công tác quản lý thuế theo quy định tại các điều 38, 39 và 40 của Luật này phải sử dụng thông tin đúng mục đích và bảo mật thông tin theo quy định của Luật này và quy định khác của pháp luật có liên quan.
+
+5. Chính phủ quy định chi tiết điểm c khoản 2 và khoản 3 Điều này.

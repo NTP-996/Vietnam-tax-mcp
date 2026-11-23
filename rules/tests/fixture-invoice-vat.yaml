@@ -1,0 +1,114 @@
+# Expected-result table for the fixture pack: a June-2026 and a July-2026 case
+# resolve to different pack versions; the counterpart placeholder is reported until it is given;
+# an uncovered document has no rule. `make test` runs every file in this directory.
+cases:
+  - name: July 2026 input invoice at 10% with a resolved counterpart
+    request:
+      regime: TT133
+      transaction_date: 2026-07-15
+      document:
+        kind: invoice
+        direction: input
+        vat_rate: '10'
+        subtotal_minor: 1000000
+        vat_minor: 100000
+        total_minor: 1100000
+        counterpart_account: '642'
+    expect:
+      rule_pack_version: fixture-invoice-vat@2026-07
+      rule_id: input-invoice-vat
+      needs_counterpart: false
+      lines:
+        - {account_code: '642', debit_minor: 1000000, credit_minor: 0}
+        - {account_code: '1331', debit_minor: 100000, credit_minor: 0}
+        - {account_code: '331', debit_minor: 0, credit_minor: 1100000}
+
+  - name: June 2026 input invoice resolves to the pre-cutover version
+    request:
+      regime: TT133
+      transaction_date: 2026-06-30
+      document:
+        kind: invoice
+        direction: input
+        vat_rate: '8'
+        subtotal_minor: 2000000
+        vat_minor: 160000
+        total_minor: 2160000
+        counterpart_account: '156'
+    expect:
+      rule_pack_version: fixture-invoice-vat@2026-01
+      rule_id: input-invoice-vat
+      needs_counterpart: false
+      lines:
+        - {account_code: '156', debit_minor: 2000000, credit_minor: 0}
+        - {account_code: '1331', debit_minor: 160000, credit_minor: 0}
+        - {account_code: '331', debit_minor: 0, credit_minor: 2160000}
+
+  - name: Input invoice without a counterpart reports the gap and the default
+    request:
+      regime: TT133
+      transaction_date: 2026-07-01
+      document:
+        kind: invoice
+        direction: input
+        vat_rate: '10%'
+        subtotal_minor: 500000
+        vat_minor: 50000
+        total_minor: 550000
+    expect:
+      rule_pack_version: fixture-invoice-vat@2026-07
+      rule_id: input-invoice-vat
+      needs_counterpart: true
+      counterpart_default: '642'
+      lines:
+        - {account_code: '642', debit_minor: 500000, credit_minor: 0}
+        - {account_code: '1331', debit_minor: 50000, credit_minor: 0}
+        - {account_code: '331', debit_minor: 0, credit_minor: 550000}
+
+  - name: Output invoice needs no counterpart
+    request:
+      regime: TT133
+      transaction_date: 2026-08-02
+      document:
+        kind: invoice
+        direction: output
+        vat_rate: '10'
+        subtotal_minor: 3000000
+        vat_minor: 300000
+        total_minor: 3300000
+    expect:
+      rule_pack_version: fixture-invoice-vat@2026-07
+      rule_id: output-invoice-vat
+      needs_counterpart: false
+      lines:
+        - {account_code: '131', debit_minor: 3300000, credit_minor: 0}
+        - {account_code: '511', debit_minor: 0, credit_minor: 3000000}
+        - {account_code: '3331', debit_minor: 0, credit_minor: 300000}
+
+  - name: A date before every pack has no rule
+    request:
+      regime: TT133
+      transaction_date: 2025-12-31
+      document:
+        kind: invoice
+        direction: input
+        vat_rate: '10'
+        subtotal_minor: 1
+        vat_minor: 0
+        total_minor: 1
+    expect:
+      error: rule_not_found
+
+  - name: A regime without packs has no rule
+    request:
+      regime: HKD
+      transaction_date: 2026-07-15
+      document:
+        kind: invoice
+        direction: input
+        vat_rate: '10'
+        subtotal_minor: 1
+        vat_minor: 0
+        total_minor: 1
+    expect:
+      error: rule_not_found

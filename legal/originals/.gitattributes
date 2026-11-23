@@ -1,0 +1,4 @@
+# Originals are stored byte for byte as downloaded (their sha256 is in
+# legal/manifest.yaml): no end-of-line or text normalisation, no diffs.
+* binary
+.gitattributes text eol=lf

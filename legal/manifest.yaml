@@ -1,0 +1,366 @@
+# Legal corpus manifest — the original texts behind every citation.
+#
+# One entry per document, obtained from an OFFICIAL portal only (Công báo,
+# vbpl.vn, vanban.chinhphu.vn, …). Secondary sites were used only to learn a
+# document's number and date, never as the stored text. A document that could
+# not be found on an official portal stays here with status not_found_official
+# and a reason, and has no original and no corpus.
+#
+# format: pdf       — the bytes as downloaded (Công báo PDF with a text layer)
+#         vbpl-html — the document payload of the vbpl.vn page, byte-exact
+#                     (the page around it is re-rendered on every request)
+# parts:  documents published in several Công báo files list every part;
+#         source_url/sha256 repeat part 1.
+# Dates are ISO. effective_to is null while the document is in force; an
+# amended document stays in force and its amending document has its own entry.
+#
+# topics:   space-separated topic codes of the tax-law MCP server:
+#           hoa_don quan_ly_thue gtgt hkd ke_toan.
+# replaces: '; '-separated documents the effect article says this one replaces, as the note
+#           records them; absent when the note names none.
+#
+# Edited by hand; scripts/legal_fetch.py reads it (make legal-fetch / legal-check).
+# Nothing here is content-verified: see legal/README.md.
+documents:
+  - id: luat-108-2025-qh15
+    number: '108/2025/QH15'
+    title: 'Luật Quản lý thuế'
+    type: luat
+    issuer: 'Quốc hội'
+    signed: 2025-12-10
+    effective_from: 2026-07-01
+    effective_to: null
+    topics: 'quan_ly_thue hoa_don hkd'
+    replaces: 'Luật Quản lý thuế 38/2019/QH14'
+    status: obtained
+    format: pdf
+    portal_page: 'https://congbao.chinhphu.vn/van-ban/luat-so-108-2025-qh15-468670.htm'
+    source_url: 'https://congbaocdn.chinhphu.vn/180507251028987904/2026/1/24/108signed-17692413914281416017170.pdf'
+    sha256: 40587b11e57220c69abc6f65008f016bd780254f28e0079aa33b71a57a2c269d
+    retrieved: 2026-11-22
+    note: 'Công báo số 38, 22-01-2026. Điều 52: in force 2026-07-01 except Điều 13 and the HKD e-invoice rule of Điều 26, in force 2026-01-01; replaces Luật Quản lý thuế 38/2019/QH14.'
+  - id: nd-252-2026
+    number: '252/2026/NĐ-CP'
+    title: 'Quy định chi tiết một số điều và biện pháp để tổ chức, hướng dẫn thi hành Luật Quản lý thuế'
+    type: nghi-dinh
+    issuer: 'Chính phủ'
+    signed: 2026-06-30
+    effective_from: 2026-07-01
+    effective_to: null
+    topics: 'quan_ly_thue'
+    replaces: 'NĐ 126/2020/NĐ-CP'
+    status: obtained
+    format: pdf
+    portal_page: 'https://congbao.chinhphu.vn/van-ban/nghi-dinh-so-252-2026-nd-cp-469958.htm'
+    source_url: 'https://congbaocdn.chinhphu.vn/180507251028987904/2026/7/16/469958-1784169386_v1_1784170386_signed.pdf'
+    sha256: 0ae4bf867af790bab3290df5c3b326a1070500c570a7a78f5cf152f1bf4da390
+    retrieved: 2026-11-22
+    note: 'Công báo số 401, 16-07-2026. The main decree under Luật 108/2025/QH15. The vanban.chinhphu.vn copy is an image-only scan. Điều 74: replaces NĐ 126/2020/NĐ-CP and its amending decrees; Điều 15 khoản 2 điểm a.2–a.6 apply only until 2026-12-31.'
+  - id: nd-254-2026
+    number: '254/2026/NĐ-CP'
+    title: 'Quy định chi tiết một số điều và biện pháp để tổ chức, hướng dẫn thi hành Luật Quản lý thuế số 108/2025/QH15 về hóa đơn điện tử, chứng từ điện tử'
+    type: nghi-dinh
+    issuer: 'Chính phủ'
+    signed: 2026-06-30
+    effective_from: 2026-07-01
+    effective_to: null
+    topics: 'hoa_don'
+    replaces: 'NĐ 123/2020/NĐ-CP; NĐ 41/2022/NĐ-CP Điều 1; NĐ 70/2025/NĐ-CP'
+    status: obtained
+    format: pdf
+    portal_page: 'https://congbao.chinhphu.vn/van-ban/nghi-dinh-so-254-2026-nd-cp-469957.htm'
+    source_url: 'https://congbaocdn.chinhphu.vn/180507251028987904/2026/7/16/469957-1784171406_v1_1784174327_signed.pdf'
+    sha256: 9aa30852472c869f55f13e02aff177fcfd4b5bc4c8163f9103635e9c1caf4ba7
+    retrieved: 2026-11-22
+    note: 'Công báo số 402, 16-07-2026. The e-invoice decree. Điều 43: replaces NĐ 123/2020/NĐ-CP, Điều 1 of NĐ 41/2022/NĐ-CP and NĐ 70/2025/NĐ-CP.'
+  - id: tt-91-2026
+    number: '91/2026/TT-BTC'
+    title: 'Quy định một số điều của Luật Quản lý thuế và Nghị định số 254/2026/NĐ-CP về hóa đơn điện tử, chứng từ điện tử'
+    type: thong-tu
+    issuer: 'Bộ Tài chính'
+    signed: 2026-06-30
+    effective_from: 2026-07-01
+    effective_to: null
+    topics: 'hoa_don'
+    replaces: 'TT 32/2025/TT-BTC'
+    status: obtained
+    format: pdf
+    portal_page: 'https://congbao.chinhphu.vn/van-ban/thong-tu-so-91-2026-tt-btc-470171.htm'
+    source_url: 'https://congbaocdn.chinhphu.vn/180507251028987904/2026/8/6/470171-1785986965_v1_1786011300_signed.pdf'
+    sha256: 9412ecb46612a0c222b4975c91c3160e062b7132c90291d7bf884f2810db3018
+    retrieved: 2026-11-22
+    note: 'Công báo, 06-08-2026. Điều 25: TT 32/2025/TT-BTC ceases to have effect.'
+  - id: tt-89-2026
+    number: '89/2026/TT-BTC'
+    title: 'Quy định chi tiết một số điều của Luật Quản lý thuế và Nghị định số 252/2026/NĐ-CP'
+    type: thong-tu
+    issuer: 'Bộ Tài chính'
+    signed: 2026-06-30
+    effective_from: 2026-07-01
+    effective_to: null
+    topics: 'quan_ly_thue'
+    replaces: 'TT 80/2021/TT-BTC'
+    status: obtained
+    format: vbpl-html
+    portal_page: 'https://vanban.chinhphu.vn/?pageid=27160&docid=218974'
+    source_url: 'https://vbpl.vn/van-ban/chi-tiet/thong-tu-so-89-2026-tt-btc-quy-dinh-chi-tiet-mot-so-dieu-cua-luat-quan-ly-thue-va-nghi-dinh-so-252-2026-nd-cp-cua-chinh-phu-quy-dinh-chi-tiet-mot-so-dieu-va-bien-phap-de-to-chuc-huong-dan-thi-hanh-luat-quan-ly-thue--f989a690-80e5-11f1-abb8-b75cd8c90162'
+    sha256: b69958927ccb6a470b536431a3aea1f516cd28506958c2e57d5c4372195b05d8
+    retrieved: 2026-11-22
+    note: 'Not found in the Công báo listings; the vanban.chinhphu.vn PDF is an 839-page image-only scan. Stored: the document payload of the vbpl.vn (Bộ Tư pháp) page. Corrected by QĐ 2551/QĐ-BTC (qd-2551-2026-btc); the corpus text is the uncorrected original. Điều 99: in force 2026-07-01; repeals TT 80/2021/TT-BTC and others; khoản 5 replaces six forms of TT 18/2026/TT-BTC and one of TT 50/2026/TT-BTC, TT 18 itself stays in force.'
+  - id: qd-2551-2026-btc
+    number: '2551/QĐ-BTC'
+    title: 'Đính chính Thông tư số 89/2026/TT-BTC'
+    type: quyet-dinh
+    issuer: 'Bộ Tài chính'
+    signed: 2026-09-15
+    effective_from: 2026-09-15
+    effective_to: null
+    topics: 'quan_ly_thue'
+    status: obtained
+    format: pdf
+    portal_page: 'https://congbao.chinhphu.vn/van-ban/quyet-dinh-so-2551-qd-btc-470485.htm'
+    source_url: 'https://congbaocdn.chinhphu.vn/180507251028987904/2026/9/25/470485-1790228982_v1_1790299993_signed.pdf'
+    sha256: 4e3c50144399bc92d5affc3c881ef51b9a0046f5a18d1fb38d6067fefecc2d0f
+    retrieved: 2026-11-22
+    note: 'Công báo số 524, 25-09-2026. Corrects the text of tt-89-2026.'
+  - id: tt-18-2026
+    number: '18/2026/TT-BTC'
+    title: 'Quy định về hồ sơ, thủ tục quản lý thuế đối với hộ kinh doanh, cá nhân kinh doanh'
+    type: thong-tu
+    issuer: 'Bộ Tài chính'
+    signed: 2026-03-05
+    effective_from: 2026-03-05
+    effective_to: null
+    topics: 'hkd'
+    replaces: 'TT 40/2021/TT-BTC; TT 100/2021/TT-BTC'
+    status: obtained
+    format: pdf
+    portal_page: 'https://congbao.chinhphu.vn/van-ban/thong-tu-so-18-2026-tt-btc-469080.htm'
+    source_url: 'https://congbaocdn.chinhphu.vn/180507251028987904/2026/3/24/469080-1774341054_v1_1774343681_signed.pdf'
+    sha256: 43c44617f8c7bf25b64f5434f0bd742259dc4db0f2150135638156f19516bf21
+    retrieved: 2026-11-22
+    note: 'Công báo, 24-03-2026. Amended by tt-50-2026. Điều 9: in force from signature; replaces TT 40/2021/TT-BTC and TT 100/2021/TT-BTC. Six of its forms are replaced by TT 89/2026/TT-BTC Điều 99 khoản 5 from 2026-07-01.'
+  - id: tt-50-2026
+    number: '50/2026/TT-BTC'
+    title: 'Sửa đổi, bổ sung một số điều của Thông tư số 18/2026/TT-BTC'
+    type: thong-tu
+    issuer: 'Bộ Tài chính'
+    signed: 2026-05-13
+    effective_from: 2026-05-13
+    effective_to: null
+    topics: 'hkd'
+    status: obtained
+    format: pdf
+    portal_page: 'https://congbao.chinhphu.vn/van-ban/thong-tu-so-50-2026-tt-btc-469544.htm'
+    source_url: 'https://congbaocdn.chinhphu.vn/180507251028987904/2026/5/29/469544-1779683499_v1_1780016821_signed.pdf'
+    sha256: 8e0fed9647b0cdd04303de457873135ec9af4fccdb3c8b77279a14d05383bce1
+    retrieved: 2026-11-22
+    note: 'Công báo, 29-05-2026; in force from signature.'
+  - id: nd-68-2026
+    number: '68/2026/NĐ-CP'
+    title: 'Quy định về chính sách thuế và quản lý thuế đối với hộ kinh doanh, cá nhân kinh doanh'
+    type: nghi-dinh
+    issuer: 'Chính phủ'
+    signed: 2026-03-05
+    effective_from: 2026-03-05
+    effective_to: null
+    topics: 'hkd'
+    status: obtained
+    format: pdf
+    portal_page: 'https://congbao.chinhphu.vn/van-ban/nghi-dinh-so-68-2026-nd-cp-469047.htm'
+    source_url: 'https://congbaocdn.chinhphu.vn/180507251028987904/2026/3/18/469047-1773796836_v1_1773803477_signed.pdf'
+    sha256: aa26c94d4591ba65552d08194a97da62b18ed1562892a8ec00b2b01fc5569ec9
+    retrieved: 2026-11-22
+    note: 'Công báo, 18-03-2026. Amended by nd-141-2026. Điều 19: in force from signature.'
+  - id: nd-141-2026
+    number: '141/2026/NĐ-CP'
+    title: 'Sửa đổi, bổ sung một số điều của Nghị định số 68/2026/NĐ-CP và Nghị định số 320/2025/NĐ-CP'
+    type: nghi-dinh
+    issuer: 'Chính phủ'
+    signed: 2026-04-29
+    effective_from: 2026-01-01
+    effective_to: null
+    topics: 'hkd'
+    status: obtained
+    format: pdf
+    portal_page: 'https://congbao.chinhphu.vn/van-ban/nghi-dinh-so-141-2026-nd-cp-469455.htm'
+    source_url: 'https://congbaocdn.chinhphu.vn/180507251028987904/2026/5/14/469455-1778231931_v1_1778720623_signed.pdf'
+    sha256: 5336a6dcbffc1a6ddff8e2629033dd0b02867f2d6ec12f7e9d2b69c237fac50f
+    retrieved: 2026-11-22
+    note: 'Công báo, 14-05-2026. Effective date earlier than signature, per the portal; read its effect article. Điều 3: in force from 2026-01-01; raises the HKD threshold in NĐ 68/2026 from 500 triệu to 01 tỷ đồng (Điều 1).'
+  - id: nq-198-2025-qh15
+    number: '198/2025/QH15'
+    title: 'Về một số cơ chế, chính sách đặc biệt phát triển kinh tế tư nhân'
+    type: nghi-quyet
+    issuer: 'Quốc hội'
+    signed: 2025-05-17
+    effective_from: 2025-05-17
+    effective_to: null
+    topics: 'hkd'
+    status: obtained
+    format: pdf
+    portal_page: 'https://congbao.chinhphu.vn/van-ban/nghi-quyet-so-198-2025-qh15-44898.htm'
+    source_url: 'https://congbaocdn.chinhphu.vn/CongBaoCP/VanBan/2025/5/44898/56348-1-2025713-714198-2025-qh15.pdf'
+    sha256: e8d491128fe5f77e66b1e4801131c79b49e4bbf29e7a4ee482b8bbbf89930a62
+    retrieved: 2026-11-22
+    note: 'Công báo số 713 + 714, 29-05-2025. Điều 10: household and individual businesses stop using presumptive tax (khoán thuế) from 2026-01-01.'
+  - id: luat-48-2024-qh15
+    number: '48/2024/QH15'
+    title: 'Luật Thuế giá trị gia tăng'
+    type: luat
+    issuer: 'Quốc hội'
+    signed: 2024-11-26
+    effective_from: 2025-07-01
+    effective_to: null
+    topics: 'gtgt'
+    status: obtained
+    format: pdf
+    portal_page: 'https://congbao.chinhphu.vn/van-ban/luat-so-48-2024-qh15-43576.htm'
+    source_url: 'https://congbaocdn.chinhphu.vn/CongBaoCP/VanBan/2024/11/43576/53720-1-20241527-152848-2024-qh15.pdf'
+    sha256: 8be4caa345b42bce86386831da0bf4a9ed2bebbc54b471535c758431a5277569
+    retrieved: 2026-11-22
+    note: 'Công báo số 1527 + 1528, 29-12-2024. Amended by Luật 90/2025/QH15, 149/2025/QH15 and 09/2026/QH16.'
+  - id: luat-90-2025-qh15
+    number: '90/2025/QH15'
+    title: 'Sửa đổi, bổ sung một số điều của Luật Đấu thầu, Luật Đầu tư theo phương thức đối tác công tư, Luật Hải quan, Luật Thuế giá trị gia tăng, Luật Thuế xuất khẩu, thuế nhập khẩu, Luật Đầu tư, Luật Đầu tư công, Luật Quản lý, sử dụng tài sản công'
+    type: luat
+    issuer: 'Quốc hội'
+    signed: 2025-06-25
+    effective_from: 2025-07-01
+    effective_to: null
+    topics: 'gtgt'
+    status: obtained
+    format: pdf
+    portal_page: 'https://congbao.chinhphu.vn/van-ban/luat-so-90-2025-qh15-45389.htm'
+    source_url: 'https://congbaocdn.chinhphu.vn/CongBaoCP/VanBan/2025/6/45389/57364-1-2025907-90890-2025-qh15.pdf'
+    sha256: 17c02d5a4f21df9e85d18ad4c88e753d722dee80865c233e0b95db453263df07
+    retrieved: 2026-11-22
+    note: 'Công báo số 907 + 908, 16-07-2025. Omnibus law; one article amends the VAT law.'
+  - id: luat-149-2025-qh15
+    number: '149/2025/QH15'
+    title: 'Sửa đổi, bổ sung một số điều của Luật Thuế giá trị gia tăng'
+    type: luat
+    issuer: 'Quốc hội'
+    signed: 2025-12-11
+    effective_from: 2026-01-01
+    effective_to: null
+    topics: 'gtgt'
+    status: obtained
+    format: pdf
+    portal_page: 'https://congbao.chinhphu.vn/van-ban/luat-so-149-2025-qh15-468709.htm'
+    source_url: 'https://congbaocdn.chinhphu.vn/180507251028987904/2026/1/26/149signed-1769416922782586908570.pdf'
+    sha256: 47778195b5a6fbb25817db7bb95d8cd6a3ec2665cc49f79f111c8860627f203c
+    retrieved: 2026-11-22
+    note: 'Công báo, 26-01-2026.'
+  - id: luat-09-2026-qh16
+    number: '09/2026/QH16'
+    title: 'Sửa đổi, bổ sung một số điều của Luật Thuế thu nhập cá nhân, Luật Thuế giá trị gia tăng, Luật Thuế thu nhập doanh nghiệp và Luật Thuế tiêu thụ đặc biệt'
+    type: luat
+    issuer: 'Quốc hội'
+    signed: 2026-04-24
+    effective_from: 2026-04-24
+    effective_to: null
+    topics: 'gtgt'
+    status: obtained
+    format: pdf
+    portal_page: 'https://congbao.chinhphu.vn/van-ban/luat-so-09-2026-qh16-469536.htm'
+    source_url: 'https://congbaocdn.chinhphu.vn/180507251028987904/2026/5/27/469536-1779329464_v1_1779843299_signed.pdf'
+    sha256: 3499f857fb0630353fc6cfaadc6e04997b273537013346f629aae3170b734da2
+    retrieved: 2026-11-22
+    note: 'Công báo số 286, 27-05-2026. Điều 5: in force on passage, Điều 1–3 from 2026-01-01; Điều 2 amends khoản 25 Điều 5 of the VAT law.'
+  - id: vbhn-114-2026-vpqh
+    number: '114/VBHN-VPQH'
+    title: 'Văn bản hợp nhất Luật Thuế giá trị gia tăng'
+    type: van-ban-hop-nhat
+    issuer: 'Văn phòng Quốc hội'
+    signed: 2026-05-20
+    effective_from: 2026-04-24
+    effective_to: null
+    topics: 'gtgt'
+    status: obtained
+    format: pdf
+    portal_page: 'https://congbao.chinhphu.vn/van-ban/van-ban-hop-nhat-so-114-vbhn-vpqh-469597.htm'
+    source_url: 'https://congbaocdn.chinhphu.vn/180507251028987904/2026/6/3/469597-1780392051_v1_1780448819_signed.pdf'
+    sha256: 3ae9204946aa77c62877c3e5fcbf0186ac226d7e518b649c84c1c983bd08494d
+    retrieved: 2026-11-22
+    note: 'Consolidation of Luật 48/2024/QH15 as amended by 90/2025, 149/2025 and 09/2026/QH16; effective_from is the latest consolidated amendment. A reading aid, not itself a source of law: cite the amending law for a rule.'
+  - id: nd-181-2025
+    number: '181/2025/NĐ-CP'
+    title: 'Quy định chi tiết thi hành một số điều của Luật Thuế giá trị gia tăng'
+    type: nghi-dinh
+    issuer: 'Chính phủ'
+    signed: 2025-07-01
+    effective_from: 2025-07-01
+    effective_to: null
+    topics: 'gtgt'
+    status: obtained
+    format: pdf
+    portal_page: 'https://congbao.chinhphu.vn/van-ban/nghi-dinh-so-181-2025-nd-cp-45379.htm'
+    source_url: 'https://congbaocdn.chinhphu.vn/CongBaoCP/VanBan/2025/7/45379/57344-1-2025899-900181-2025-nd-cp.pdf'
+    sha256: 48f1b382c71e84b36d8695cbcf151bd61d3ce7db862261ccee917cc7d9909d1d
+    retrieved: 2026-11-22
+    note: 'Công báo số 899 + 900 and 901 + 902, 16-07-2025 (two parts). Amended by nd-359-2025 and nd-144-2026.'
+    parts:
+      - source_url: 'https://congbaocdn.chinhphu.vn/CongBaoCP/VanBan/2025/7/45379/57344-1-2025899-900181-2025-nd-cp.pdf'
+        sha256: 48f1b382c71e84b36d8695cbcf151bd61d3ce7db862261ccee917cc7d9909d1d
+      - source_url: 'https://congbaocdn.chinhphu.vn/CongBaoCP/VanBan/2025/7/45379/57347-1-2025901-902181-2025-nd-cp.pdf'
+        sha256: 1e6a901ec555e3fb788bf7318ea2d1a16563b255d0f2c08b6ad85b98b5000705
+  - id: nd-359-2025
+    number: '359/2025/NĐ-CP'
+    title: 'Sửa đổi, bổ sung một số điều của Nghị định số 181/2025/NĐ-CP quy định chi tiết thi hành một số điều của Luật Thuế giá trị gia tăng'
+    type: nghi-dinh
+    issuer: 'Chính phủ'
+    signed: 2025-12-31
+    effective_from: 2026-01-01
+    effective_to: null
+    topics: 'gtgt'
+    status: obtained
+    format: vbpl-html
+    portal_page: 'https://vanban.chinhphu.vn/?pageid=27160&docid=216388'
+    source_url: 'https://vbpl.vn/van-ban/chi-tiet/nghi-dinh-so-359-2025-nd-cp-sua-doi-bo-sung-mot-so-dieu-cua-nghi-dinh-so-181-2025-nd-cp-ngay-01-thang-7-nam-2025-cua-chinh-phu-quy-dinh-chi-tiet-thi-hanh-mot-so-dieu-cua-luat-thue-gia-tri-gia-tang--186979'
+    sha256: 633e68c9b69637396f0f2a616cea20eba6624cd4309f474b1d79a041c82849c2
+    retrieved: 2026-11-22
+    note: 'The vanban.chinhphu.vn PDF is an image-only scan and no Công báo page was found. Stored: the document payload of the vbpl.vn page.'
+  - id: nd-144-2026
+    number: '144/2026/NĐ-CP'
+    title: 'Sửa đổi, bổ sung một số điều của Nghị định số 181/2025/NĐ-CP đã được sửa đổi, bổ sung bởi Nghị định số 359/2025/NĐ-CP'
+    type: nghi-dinh
+    issuer: 'Chính phủ'
+    signed: 2026-05-05
+    effective_from: 2026-06-20
+    effective_to: null
+    topics: 'gtgt'
+    status: obtained
+    format: pdf
+    portal_page: 'https://congbao.chinhphu.vn/van-ban/nghi-dinh-so-144-2026-nd-cp-469482.htm'
+    source_url: 'https://congbaocdn.chinhphu.vn/180507251028987904/2026/5/18/469482-1778814209_v1_1779067294_signed.pdf'
+    sha256: 9481fc9ab3007ee8fc2acdf6e1fbd04304f990019f98300ed8154829ba390136
+    retrieved: 2026-11-22
+    note: 'Công báo, 18-05-2026. Điều 6: in force 2026-06-20.'
+  - id: tt-133-2016
+    number: '133/2016/TT-BTC'
+    title: 'Hướng dẫn Chế độ kế toán doanh nghiệp nhỏ và vừa'
+    type: thong-tu
+    issuer: 'Bộ Tài chính'
+    signed: 2016-08-26
+    effective_from: 2017-01-01
+    effective_to: null
+    topics: 'ke_toan'
+    status: obtained
+    format: pdf
+    portal_page: 'https://congbao.chinhphu.vn/van-ban/thong-tu-so-133-2016-tt-btc-21048.htm'
+    source_url: 'https://congbaocdn.chinhphu.vn/CongBaoCP/VanBan/2016/8/21048/15520-1-1332016tt-btc15577pdf'
+    sha256: 6928083c03a87c4e7d71c2d92db842147f10d1081559d97a09bdd4e1d5c827fc
+    retrieved: 2026-11-22
+    note: 'Công báo số 1101 + 1102 onwards, 12-10-2016 (five parts; parts 4–5 are annexes). Article 10 amended by TT 46/2025/TT-BTC, which is not in this manifest.'
+    parts:
+      - source_url: 'https://congbaocdn.chinhphu.vn/CongBaoCP/VanBan/2016/8/21048/15520-1-1332016tt-btc15577pdf'
+        sha256: 6928083c03a87c4e7d71c2d92db842147f10d1081559d97a09bdd4e1d5c827fc
+      - source_url: 'https://congbaocdn.chinhphu.vn/CongBaoCP/VanBan/2016/8/21048/15522-1-1332016tt-btc15579pdf'
+        sha256: aea7f0f084da985fab59c15aea9baa26b4cea8552f34ed3b1fb5ba16f9c9a2d1
+      - source_url: 'https://congbaocdn.chinhphu.vn/CongBaoCP/VanBan/2016/8/21048/15524-1-1332016tt-btc15581pdf'
+        sha256: 427f7c197b283ab5371f714dbddd89f315006ba3b291395924c8876b82b37e7e
+      - source_url: 'https://congbaocdn.chinhphu.vn/CongBaoCP/VanBan/2016/8/21048/15526-1-1332016tt-btc15583pdf'
+        sha256: f5a77fdb80df004936388028c03b3186f7a113e8c2f4a2a77729e644bd0a49dd
+      - source_url: 'https://congbaocdn.chinhphu.vn/CongBaoCP/VanBan/2016/8/21048/15528-1-1332016tt-btc15589pdf'
+        sha256: d51c45a970654e1ac5811d10e8c043b20b6265920f658fe9433401b77da3e854

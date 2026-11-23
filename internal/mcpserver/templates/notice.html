@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{.Product}}</title>
+    <style>
+      /* Tokens from DESIGN.md: {colors.canvas}, {colors.surface}, {colors.text*}, {colors.hairline},
+     {gradients.brand} with {colors.on-accent} text. No web font is fetched (no third-party
+     asset): Be Vietnam Pro when installed, else the system face. */
+      :root {
+        --canvas: #06080b;
+        --surface: #0e1218;
+        --text: #ffffff;
+        --text-2: #aab4c0;
+        --text-3: #6a7480;
+        --hairline: rgba(255, 255, 255, 0.09);
+        --brand: linear-gradient(135deg, #9fe5f9 0%, #3c9ff6 100%);
+        --on-accent: #06080b;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--canvas);
+        color: var(--text);
+        font-family:
+          'Be Vietnam Pro',
+          system-ui,
+          -apple-system,
+          'Segoe UI',
+          sans-serif;
+        line-height: 1.6;
+        font-variant-numeric: tabular-nums;
+      }
+      main {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 40px 16px 64px;
+      }
+      .mono {
+        display: inline-grid;
+        place-items: center;
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        background: var(--brand);
+        color: var(--on-accent);
+        font-weight: 800;
+        letter-spacing: -0.03em;
+      }
+      h1 {
+        font-size: 2rem;
+        line-height: 1.25;
+        margin: 16px 0 8px;
+        letter-spacing: -0.02em;
+      }
+      h2 {
+        font-size: 1.1rem;
+        margin: 32px 0 8px;
+      }
+      p,
+      li {
+        color: var(--text-2);
+      }
+      code {
+        background: var(--surface);
+        border: 1px solid var(--hairline);
+        border-radius: 8px;
+        padding: 2px 6px;
+        color: var(--text);
+        word-break: break-all;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+      }
+      th,
+      td {
+        text-align: left;
+        padding: 8px 6px;
+        border-bottom: 1px solid var(--hairline);
+        vertical-align: top;
+      }
+      th {
+        color: var(--text-3);
+        font-weight: 600;
+      }
+      td {
+        color: var(--text-2);
+      }
+      a {
+        color: #9fe5f9;
+      }
+      .table-wrap {
+        overflow-x: auto;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <span class="mono" aria-hidden="true">AA</span>
+      <h1>{{.Product}}</h1>
+      <p>
+        Máy chủ MCP chỉ đọc cho Claude: tra cứu nguyên văn văn bản pháp luật
+        thuế Việt Nam lấy từ cổng thông tin chính thức, và các phép tính, phép
+        kiểm tra theo bộ quy tắc có phiên bản.
+      </p>
+      <p>
+        Địa chỉ để thêm vào Claude (Cài đặt → Trình kết nối → Thêm trình kết nối
+        tùy chỉnh): <code>{{.MCPURL}}</code>
+      </p>
+      <h2>Tám công cụ</h2>
+      <ul>
+        {{range .Tools}}
+        <li><code>{{.Name}}</code> — {{.Title}}</li>
+        {{end}}
+      </ul>
+      <h2>Thông tin tham khảo</h2>
+      <p>{{.Disclaimer}}</p>
+      <h2>Dữ liệu</h2>
+      <p>
+        Máy chủ không lưu nội dung bạn gửi. Mỗi lần gọi chỉ ghi tên công cụ, mã
+        kết quả và thời gian xử lý.
+      </p>
+      <h2>Claude và dữ liệu của bạn</h2>
+      <p>
+        Những gì bạn gõ vào Claude được xử lý theo điều khoản gói Claude của
+        bạn. Với gói cá nhân (Free, Pro, Max), cuộc trò chuyện có thể được dùng
+        để huấn luyện mô hình nếu bạn không tắt tùy chọn này trong phần cài đặt
+        quyền riêng tư. Đừng dán tên, mã số thuế hay số liệu thật của khách
+        hàng.
+      </p>
+      <h2>Nguồn</h2>
+      <p>
+        Phiên bản kho văn bản <code>{{.CorpusVersion}}</code> · máy chủ
+        <code>{{.ServerVersion}}</code>. Nội dung chưa được kế toán trưởng đối
+        chiếu với bản gốc thì ghi “chưa xác minh”.
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Văn bản</th>
+              <th scope="col">Hiệu lực</th>
+              <th scope="col">Xác minh</th>
+              <th scope="col">Nguồn</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{range .Docs}}
+            <tr>
+              <td>{{.Cite}} — {{.Title}}</td>
+              <td>{{.From}}{{if .To}} – {{.To}}{{end}}</td>
+              <td>{{.Status}}</td>
+              <td><a href="{{.SourceURL}}" rel="noopener">bản gốc</a></td>
+            </tr>
+            {{end}}
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </body>
+</html>

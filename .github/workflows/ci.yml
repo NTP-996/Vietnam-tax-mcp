@@ -1,0 +1,65 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  go:
+    name: build · vet · lint · test
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      RULES_DIR: ${{ github.workspace }}/rules
+      LEGAL_DIR: ${{ github.workspace }}/legal
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Load toolchain pins
+        run: grep -Ev '^(#|$)' versions.env >> "$GITHUB_ENV"
+
+      - uses: actions/setup-go@v7
+        with:
+          go-version-file: go.mod
+
+      - name: Build and vet
+        run: |
+          go build ./...
+          go vet ./...
+
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v9
+        with:
+          version: ${{ env.GOLANGCI_LINT_VERSION }}
+
+      - name: govulncheck
+        run: |
+          go install golang.org/x/vuln/cmd/govulncheck@"$GOVULNCHECK_VERSION"
+          govulncheck ./...
+
+      - name: Tests (tools, transport, rule packs against the corpus)
+        run: go test -count=1 ./...
+
+  corpus:
+    name: legal corpus
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - name: Manifest, originals, sha256, frontmatter, dates
+        run: python3 -I scripts/legal_fetch.py --check
+
+  image:
+    name: image builds
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - name: Load toolchain pins
+        run: grep -Ev '^(#|$)' versions.env >> "$GITHUB_ENV"
+      - name: docker build
+        run: docker build --build-arg GO_IMAGE="$GO_IMAGE" -t vietnam-tax-mcp:ci .

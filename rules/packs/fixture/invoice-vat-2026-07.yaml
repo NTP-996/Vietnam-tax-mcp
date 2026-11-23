@@ -1,0 +1,49 @@
+# FIXTURE PACK — not a legal citation. It exists so the engine and its tests have a
+# deterministic treatment to run against; the server loads it only when
+# MCP_ALLOW_FIXTURE_PACKS=true, and never in production. It encodes the ordinary TT 133 postings of a VAT invoice and nothing else.
+#
+# Pack format (internal/rules): one pack per article version. The pack is chosen by the
+# transaction date against [effective_from, effective_to]; inside a pack the first rule whose
+# `when` matches the document wins. Line amounts name a document total (subtotal | vat | total);
+# `{counterpart}` is the account the caller supplies, and the engine reports `needs_counterpart` until it is given.
+legal_doc: FIXTURE
+article: 'Điều 0'
+title: 'Fixture — VAT invoice postings under the TT 133 chart (from the 2026-07-01 cutover)'
+version: fixture-invoice-vat@2026-07
+regime: TT133
+effective_from: 2026-07-01
+effective_to: null
+rules:
+  - id: input-invoice-vat
+    citation: 'FIXTURE, Điều 0 (effective 2026-07-01) — placeholder until the verified pack'
+    when:
+      document: invoice
+      direction: input
+      vat_rates: ['10', '8', '5', '0']
+    counterpart_default: '642'
+    lines:
+      - account: '{counterpart}'
+        side: debit
+        amount: subtotal
+      - account: '1331'
+        side: debit
+        amount: vat
+      - account: '331'
+        side: credit
+        amount: total
+  - id: output-invoice-vat
+    citation: 'FIXTURE, Điều 0 (effective 2026-07-01) — placeholder until the verified pack'
+    when:
+      document: invoice
+      direction: output
+      vat_rates: ['10', '8', '5', '0']
+    lines:
+      - account: '131'
+        side: debit
+        amount: total
+      - account: '511'
+        side: credit
+        amount: subtotal
+      - account: '3331'
+        side: credit
+        amount: vat

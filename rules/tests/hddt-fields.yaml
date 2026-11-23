@@ -1,0 +1,121 @@
+# Expected results for the e-invoice content pack (rules/packs/nd-254-2026/dieu-10.yaml).
+# Boundary 2026-07-01: NĐ 254/2026/NĐ-CP in force; the day before has no pack (NĐ 123/2020/NĐ-CP is
+# not in the corpus). UNVERIFIED pack.
+kind: invoice_fields
+cases:
+  - name: A complete draft to a business buyer passes
+    request:
+      issue_date: 2026-07-01
+      buyer_kind: business
+      draft: &complete
+        form: '1'
+        series: C26TAA
+        number: '00000001'
+        issued_on: '2026-07-01'
+        seller: {name: 'Công ty TNHH Mẫu', address: 'Hà Nội', mst: '0100000000'}
+        buyer:
+          {
+            name: 'Công ty CP Ví Dụ',
+            address: 'TP. Hồ Chí Minh',
+            mst: '0300000000-001',
+          }
+        lines:
+          - {
+              name: 'Dịch vụ tư vấn',
+              unit: 'gói',
+              quantity: '1',
+              unit_price: '1000000',
+              amount_minor: 1000000,
+              vat_rate: '10',
+            }
+        vat_rates:
+          - {rate: '10', base_minor: 1000000, vat_minor: 100000}
+        vat_minor: 100000
+        total_minor: 1100000
+    expect: {pack_version: hddt-fields@2026-07, missing: [], invalid: []}
+  - name: The day before NĐ 254 has no pack
+    request: {issue_date: 2026-06-30, buyer_kind: business, draft: *complete}
+    expect: {error: rule_not_found}
+  - name: Missing buyer MST, bad seller MST, a line without a unit, zero total
+    request:
+      issue_date: 2026-08-15
+      buyer_kind: business
+      draft:
+        form: '1'
+        series: C26TAA
+        number: '00000002'
+        issued_on: '2026-08-15'
+        seller: {name: 'Công ty TNHH Mẫu', address: 'Hà Nội', mst: '01000'}
+        buyer: {name: 'Công ty CP Ví Dụ', address: 'TP. Hồ Chí Minh'}
+        lines:
+          - {
+              name: 'Hàng A',
+              unit: '',
+              quantity: '2',
+              unit_price: '5000',
+              amount_minor: 10000,
+              vat_rate: '8',
+            }
+        vat_rates:
+          - {rate: '8', base_minor: 10000, vat_minor: 800}
+        vat_minor: 800
+        total_minor: 0
+    expect:
+      pack_version: hddt-fields@2026-07
+      missing: [mst-nguoi-mua, don-vi-tinh]
+      invalid: [mst-nguoi-ban, tong-tien-thanh-toan]
+  - name: An individual buyer without MST is not asked for one; a bad date is invalid
+    request:
+      issue_date: 2026-08-15
+      buyer_kind: individual
+      draft:
+        form: '2'
+        series: C26TBB
+        number: '00000003'
+        issued_on: '15/08/2026'
+        seller:
+          {name: 'Hộ kinh doanh Mẫu', address: 'Đà Nẵng', mst: '0400000000'}
+        buyer: {name: 'Nguyễn Văn A', address: 'Đà Nẵng'}
+        lines:
+          - {
+              name: 'Hàng B',
+              unit: 'cái',
+              quantity: '1',
+              unit_price: '20000',
+              amount_minor: 20000,
+              vat_rate: 'KCT',
+            }
+        vat_rates:
+          - {rate: 'KCT', base_minor: 20000, vat_minor: 0}
+        vat_minor: 0
+        total_minor: 20000
+    expect:
+      pack_version: hddt-fields@2026-07
+      missing: []
+      invalid: [thoi-diem-lap]
+  - name: An empty draft misses every always-required item
+    request: {issue_date: 2026-07-01, draft: {}}
+    expect:
+      pack_version: hddt-fields@2026-07
+      missing:
+        [
+          ky-hieu-mau-so,
+          ky-hieu-hoa-don,
+          so-hoa-don,
+          ten-nguoi-ban,
+          dia-chi-nguoi-ban,
+          mst-nguoi-ban,
+          ten-nguoi-mua,
+          dia-chi-nguoi-mua,
+          ten-hang-hoa,
+          don-vi-tinh,
+          so-luong,
+          don-gia,
+          thanh-tien-chua-thue,
+          thue-suat,
+          tien-thue-theo-thue-suat,
+          tong-tien-thue,
+          tong-tien-thanh-toan,
+          thoi-diem-lap,
+        ]
+      invalid: []

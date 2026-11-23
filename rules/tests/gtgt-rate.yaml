@@ -1,0 +1,103 @@
+# Expected results for the VAT rate packs (rules/packs/luat-48-2024-qh15/dieu-11.yaml, dieu-12.yaml).
+# Boundary: 2025-07-01 (Luật 48/2024/QH15 in force) — the day before has no pack. Amounts are
+# revenue × rate_bp / 10000, rounded half-up to the đồng (the engine's convention, pending the
+# reviewing accountant). UNVERIFIED packs: these cases pin the engine to the corpus text, they do not
+# certify the law.
+kind: rate
+cases:
+  - name: Direct method, distribution, on the first day of Luật 48
+    request:
+      {
+        regime: GTGT,
+        date: 2025-07-01,
+        tax: gtgt,
+        method: truc_tiep,
+        activity_group: phan_phoi,
+        revenue_minor: 100000000,
+      }
+    expect:
+      {
+        pack_version: gtgt-truc-tiep@2025-07,
+        row_id: truc-tiep-phan-phoi,
+        rate_bp: 100,
+        amount_minor: 1000000,
+      }
+  - name: Direct method before Luật 48 has no pack
+    request:
+      {
+        regime: GTGT,
+        date: 2025-06-30,
+        tax: gtgt,
+        method: truc_tiep,
+        activity_group: phan_phoi,
+        revenue_minor: 100000000,
+      }
+    expect: {error: rule_not_found}
+  - name: Direct method, services, after the 2026-07-01 cutover
+    request:
+      {
+        regime: GTGT,
+        date: 2026-09-30,
+        tax: gtgt,
+        method: truc_tiep,
+        activity_group: dich_vu,
+        revenue_minor: 12345679,
+      }
+    expect:
+      {
+        pack_version: gtgt-truc-tiep@2025-07,
+        row_id: truc-tiep-dich-vu,
+        rate_bp: 500,
+        amount_minor: 617284,
+      }
+  - name: Direct method, production and transport, rounds half up
+    request:
+      {
+        regime: GTGT,
+        date: 2026-03-31,
+        tax: gtgt,
+        method: truc_tiep,
+        activity_group: san_xuat_van_tai,
+        revenue_minor: 50,
+      }
+    expect:
+      {
+        pack_version: gtgt-truc-tiep@2025-07,
+        row_id: truc-tiep-san-xuat,
+        rate_bp: 300,
+        amount_minor: 2,
+      }
+  - name: Direct method, other activities
+    request:
+      {
+        regime: GTGT,
+        date: 2026-12-31,
+        tax: gtgt,
+        method: truc_tiep,
+        activity_group: khac,
+        revenue_minor: 1000000000000000,
+      }
+    expect:
+      {
+        pack_version: gtgt-truc-tiep@2025-07,
+        row_id: truc-tiep-khac,
+        rate_bp: 200,
+        amount_minor: 20000000000000,
+      }
+  - name: Unknown activity group has no row
+    request:
+      {
+        regime: GTGT,
+        date: 2026-07-01,
+        tax: gtgt,
+        method: truc_tiep,
+        activity_group: vang_bac,
+        revenue_minor: 1000,
+      }
+    expect: {error: rule_not_found}
+  - name: Deduction method row carries the citation and no rate
+    request: {regime: GTGT, date: 2026-07-01, tax: gtgt, method: khau_tru}
+    expect: {pack_version: gtgt-khau-tru@2025-07, row_id: khau-tru}
+  - name: Deduction method before Luật 48 has no pack
+    request: {regime: GTGT, date: 2025-06-30, tax: gtgt, method: khau_tru}
+    expect: {error: rule_not_found}

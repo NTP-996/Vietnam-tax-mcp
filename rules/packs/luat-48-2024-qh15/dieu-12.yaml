@@ -1,0 +1,52 @@
+# UNVERIFIED (verified: false) — written from legal/corpus/luat-48-2024-qh15/dieu-12.md, the
+# Công báo text of Luật Thuế giá trị gia tăng 48/2024/QH15, not yet signed off by the reviewing
+# accountant. Every figure below is copied from Điều 12 khoản 2 điểm b, b1–b4.
+#
+# Luật 149/2025/QH15 Điều 1 khoản 3 (effective 2026-01-01) repeals khoản 3 of this article (the
+# khoán method) and leaves khoản 2 untouched, and the consolidation VBHN 114/VBHN-VPQH prints the
+# same b1–b4; so one version covers 2025-07-01 onward. The activity-group codes are the engine's
+# names for b1–b4; the labels are verbatim. Which goods and services belong to each group is
+# detailed by the Minister of Finance (khoản 4) — not in the corpus yet.
+kind: rate
+legal_doc: 'Luật 48/2024/QH15'
+article: 'Điều 12'
+title: 'Phương pháp tính trực tiếp — tỷ lệ % trên doanh thu'
+version: gtgt-truc-tiep@2025-07
+regime: GTGT
+effective_from: 2025-07-01
+effective_to: null
+verified: false
+verified_by: null
+rates:
+  - id: truc-tiep-phan-phoi
+    citation: 'Luật 48/2024/QH15, Điều 12, khoản 2, điểm b1 — effective 2025-07-01'
+    corpus: 'luat-48-2024-qh15/dieu-12'
+    tax: gtgt
+    method: truc_tiep
+    activity_group: phan_phoi
+    activity_label: 'Phân phối, cung cấp hàng hóa'
+    rate_bp: 100
+  - id: truc-tiep-dich-vu
+    citation: 'Luật 48/2024/QH15, Điều 12, khoản 2, điểm b2 — effective 2025-07-01'
+    corpus: 'luat-48-2024-qh15/dieu-12'
+    tax: gtgt
+    method: truc_tiep
+    activity_group: dich_vu
+    activity_label: 'Dịch vụ, xây dựng không bao thầu nguyên vật liệu'
+    rate_bp: 500
+  - id: truc-tiep-san-xuat
+    citation: 'Luật 48/2024/QH15, Điều 12, khoản 2, điểm b3 — effective 2025-07-01'
+    corpus: 'luat-48-2024-qh15/dieu-12'
+    tax: gtgt
+    method: truc_tiep
+    activity_group: san_xuat_van_tai
+    activity_label: 'Sản xuất, vận tải, dịch vụ có gắn với hàng hóa, xây dựng có bao thầu nguyên vật liệu'
+    rate_bp: 300
+  - id: truc-tiep-khac
+    citation: 'Luật 48/2024/QH15, Điều 12, khoản 2, điểm b4 — effective 2025-07-01'
+    corpus: 'luat-48-2024-qh15/dieu-12'
+    tax: gtgt
+    method: truc_tiep
+    activity_group: khac
+    activity_label: 'Hoạt động kinh doanh khác'
+    rate_bp: 200

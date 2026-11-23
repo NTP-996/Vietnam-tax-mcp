@@ -1,0 +1,94 @@
+# The tax-law MCP server behind Traefik, which terminates TLS on 443
+# with an ACME (Let's Encrypt, TLS-ALPN-01) certificate for MCP_HOST
+# and routes to mcp:8090; port 80 only redirects. The mcp container
+# is stateless: read-only filesystem, no volume, no database, no
+# published port. Run it as .github/workflows/deploy.yml does:
+#
+#   docker compose -p vietnam-tax-mcp -f compose.yml \
+#     --env-file .env --env-file deploy.env up -d
+#
+# .env (mode 0600) holds MCP_HOST, ACME_EMAIL and STATS_PASSWORD;
+# deploy.env holds IMAGE_REPO, IMAGE_TAG and TRAEFIK_IMAGE. No real
+# value is committed here.
+name: vietnam-tax-mcp
+
+services:
+  traefik:
+    image: ${TRAEFIK_IMAGE:?set TRAEFIK_IMAGE (versions.env)}
+    restart: unless-stopped
+    command:
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --providers.docker.network=vietnam-tax-mcp-edge
+      - --entrypoints.web.address=:80
+      - --entrypoints.web.http.redirections.entrypoint.to=websecure
+      - --entrypoints.web.http.redirections.entrypoint.scheme=https
+      - --entrypoints.websecure.address=:443
+      - --certificatesresolvers.le.acme.tlschallenge=true
+      - --certificatesresolvers.le.acme.email=${ACME_EMAIL:?set ACME_EMAIL}
+      - --certificatesresolvers.le.acme.storage=/acme/acme.json
+      - --accesslog=false
+      - --log.level=WARN
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - acme:/acme
+    networks: [edge]
+    security_opt: ['no-new-privileges:true']
+    logging: &logging
+      driver: json-file
+      options: {max-size: 10m, max-file: '5'}
+
+  mcp:
+    image: ${IMAGE_REPO:?set IMAGE_REPO (ghcr.io/<owner>/<repo>)}:${IMAGE_TAG:?set IMAGE_TAG (deploy.env)}
+    entrypoint: ['/mcp']
+    restart: unless-stopped
+    environment:
+      APP_ENV: production
+      MCP_PORT: '8090'
+      LEGAL_DIR: /legal
+      RULES_DIR: /rules
+      MCP_PUBLIC_URL: https://${MCP_HOST:?set MCP_HOST}
+      MCP_PRODUCT_NAME: ${MCP_PRODUCT_NAME:-Tra cứu luật thuế}
+      MCP_RATE_PER_MIN: ${MCP_RATE_PER_MIN:-300}
+      MCP_MAX_INFLIGHT: ${MCP_MAX_INFLIGHT:-32}
+      MCP_ALLOWED_ORIGINS: ${MCP_ALLOWED_ORIGINS:-https://claude.ai,https://claude.com}
+      MCP_ALLOW_FIXTURE_PACKS: 'false'
+      STATS_USER: ${STATS_USER:-pm}
+      STATS_PASSWORD: ${STATS_PASSWORD:-}
+      # Traefik's network: ClientIP() is the caller's address, not the proxy's.
+      TRUSTED_PROXIES: 172.16.0.0/12
+      # No DATABASE_URL, ever: the production guard refuses to start with one.
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ['no-new-privileges:true']
+    user: nonroot:nonroot
+    mem_limit: 256m
+    networks: [edge]
+    healthcheck:
+      test: ['CMD', '/mcp', '-healthcheck']
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.mcp.rule=Host(`${MCP_HOST}`)
+      - traefik.http.routers.mcp.entrypoints=websecure
+      - traefik.http.routers.mcp.tls.certresolver=le
+      - traefik.http.routers.mcp.middlewares=mcp-headers,mcp-body
+      - traefik.http.services.mcp.loadbalancer.server.port=8090
+      - traefik.http.middlewares.mcp-headers.headers.stsSeconds=31536000
+      - traefik.http.middlewares.mcp-headers.headers.stsIncludeSubdomains=true
+      - traefik.http.middlewares.mcp-headers.headers.contentTypeNosniff=true
+      - traefik.http.middlewares.mcp-headers.headers.frameDeny=true
+      - traefik.http.middlewares.mcp-body.buffering.maxRequestBodyBytes=262144
+    logging: *logging
+
+volumes:
+  acme:
+
+networks:
+  edge:
+    name: vietnam-tax-mcp-edge

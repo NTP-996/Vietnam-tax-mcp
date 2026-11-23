@@ -1,0 +1,169 @@
+# Expected results for the deadline packs (rules/packs/nd-252-2026/dieu-10.yaml and
+# rules/packs/nd-68-2026/dieu-8.yaml). The pack is chosen on the period's last day; boundary
+# 2026-07-01 — a period ending 2026-06-30 has no pack. Weekends shift to the next working day
+# (NĐ 252/2026/NĐ-CP Điều 3 khoản 7); no public holiday is listed yet. UNVERIFIED packs.
+kind: deadline
+cases:
+  - name: DN monthly VAT for July 2026 — 20 August 2026 is a Thursday
+    request:
+      {tax: gtgt, entity_type: dn, period: {kind: month, year: 2026, number: 7}}
+    expect:
+      {
+        pack_version: qlt-deadline@2026-07,
+        row_id: dn-gtgt-thang,
+        due_date: 2026-08-20,
+        shifted: false,
+      }
+  - name: DN monthly VAT for June 2026 is before the pack
+    request:
+      {tax: gtgt, entity_type: dn, period: {kind: month, year: 2026, number: 6}}
+    expect: {error: rule_not_found}
+  - name: DN quarterly VAT for Q3 2026 — 31 October 2026 is a Saturday, shifted to Monday
+    request:
+      {
+        tax: gtgt,
+        entity_type: dn,
+        method: khau_tru,
+        period: {kind: quarter, year: 2026, number: 3},
+      }
+    expect:
+      {
+        pack_version: qlt-deadline@2026-07,
+        row_id: dn-gtgt-quy,
+        due_date: 2026-11-02,
+        shifted: true,
+      }
+  - name: DN quarterly VAT for Q2 2026 is before the pack
+    request:
+      {
+        tax: gtgt,
+        entity_type: dn,
+        period: {kind: quarter, year: 2026, number: 2},
+      }
+    expect: {error: rule_not_found}
+  - name: DN quarterly VAT for Q4 2026 — 31 January 2027 is a Sunday
+    request:
+      {
+        tax: gtgt,
+        entity_type: dn,
+        period: {kind: quarter, year: 2026, number: 4},
+      }
+    expect:
+      {
+        pack_version: qlt-deadline@2026-07,
+        row_id: dn-gtgt-quy,
+        due_date: 2027-02-01,
+        shifted: true,
+      }
+  - name: DN monthly PIT for December 2026 crosses the year
+    request:
+      {
+        tax: tncn,
+        entity_type: dn,
+        period: {kind: month, year: 2026, number: 12},
+      }
+    expect:
+      {
+        pack_version: qlt-deadline@2026-07,
+        row_id: dn-tncn-thang,
+        due_date: 2027-01-20,
+        shifted: false,
+      }
+  - name: DN quarterly PIT for Q1 2027 — 30 April 2027 is a Friday
+    request:
+      {
+        tax: tncn,
+        entity_type: dn,
+        period: {kind: quarter, year: 2027, number: 1},
+      }
+    expect:
+      {
+        pack_version: qlt-deadline@2026-07,
+        row_id: dn-tncn-quy,
+        due_date: 2027-04-30,
+        shifted: false,
+      }
+  - name: HKD quarterly VAT for Q3 2026
+    request:
+      {
+        tax: gtgt,
+        entity_type: hkd,
+        period: {kind: quarter, year: 2026, number: 3},
+      }
+    expect:
+      {
+        pack_version: hkd-deadline@2026-07,
+        row_id: hkd-gtgt-quy,
+        due_date: 2026-11-02,
+        shifted: true,
+      }
+  - name: HKD quarterly VAT for Q2 2026 is before the pack
+    request:
+      {
+        tax: gtgt,
+        entity_type: hkd,
+        period: {kind: quarter, year: 2026, number: 2},
+      }
+    expect: {error: rule_not_found}
+  - name: HKD monthly VAT for September 2026 — 20 October 2026 is a Tuesday
+    request:
+      {
+        tax: gtgt,
+        entity_type: hkd,
+        period: {kind: month, year: 2026, number: 9},
+      }
+    expect:
+      {
+        pack_version: hkd-deadline@2026-07,
+        row_id: hkd-gtgt-thang,
+        due_date: 2026-10-20,
+        shifted: false,
+      }
+  - name: HKD quarterly PIT for Q4 2026
+    request:
+      {
+        tax: tncn,
+        entity_type: hkd,
+        period: {kind: quarter, year: 2026, number: 4},
+      }
+    expect:
+      {
+        pack_version: hkd-deadline@2026-07,
+        row_id: hkd-tncn-quy,
+        due_date: 2027-02-01,
+        shifted: true,
+      }
+  - name: HKD monthly PIT for July 2026 — 20 August 2026 is a Thursday
+    request:
+      {
+        tax: tncn,
+        entity_type: hkd,
+        period: {kind: month, year: 2026, number: 7},
+      }
+    expect:
+      {
+        pack_version: hkd-deadline@2026-07,
+        row_id: hkd-tncn-thang,
+        due_date: 2026-08-20,
+        shifted: false,
+      }
+  - name: HKD annual PIT settlement for 2026 — 31 March 2027 is a Wednesday
+    request: {tax: tncn, entity_type: hkd, period: {kind: year, year: 2026}}
+    expect:
+      {
+        pack_version: hkd-deadline@2026-07,
+        row_id: hkd-tncn-quyet-toan-nam,
+        due_date: 2027-03-31,
+        shifted: false,
+      }
+  - name: DN annual VAT has no row
+    request: {tax: gtgt, entity_type: dn, period: {kind: year, year: 2026}}
+    expect: {error: rule_not_found}
+  - name: A quarter number 5 is invalid
+    request:
+      {
+        tax: gtgt,
+        entity_type: dn,
+        period: {kind: quarter, year: 2026, number: 5},
+      }
+    expect: {error: invalid}

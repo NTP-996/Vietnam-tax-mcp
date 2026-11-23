@@ -1,0 +1,31 @@
+---
+doc: "nd-181-2025"
+number: "181/2025/NĐ-CP"
+article: 9
+title: "Giá tính thuế đối với hoạt động đại lý, môi giới mua bán hàng hóa, dịch vụ hưởng hoa hồng và hàng hóa, dịch vụ được sử dụng hóa đơn thanh toán ghi giá thanh toán"
+chapter: "Chương II CĂN CỨ VÀ PHƯƠNG PHÁP TÍNH THUẾ — Mục 1 GIÁ TÍNH THUẾ"
+effective_from: 2025-07-01
+effective_to: null
+source_url: "https://congbaocdn.chinhphu.vn/CongBaoCP/VanBan/2025/7/45379/57344-1-2025899-900181-2025-nd-cp.pdf"
+sha256: "48f1b382c71e84b36d8695cbcf151bd61d3ce7db862261ccee917cc7d9909d1d"
+verified: false
+verified_by: null
+---
+
+# Điều 9. Giá tính thuế đối với hoạt động đại lý, môi giới mua bán hàng hóa, dịch vụ hưởng hoa hồng và hàng hóa, dịch vụ được sử dụng hóa đơn thanh toán ghi giá thanh toán
+
+1. Đối với hoạt động đại lý, môi giới mua bán hàng hóa và dịch vụ hưởng hoa hồng là tiền hoa hồng thu được từ các hoạt động này chưa có thuế giá trị gia tăng, trừ trường hợp không phải tính thuế giá trị gia tăng gồm:
+
+a) Doanh thu hàng hóa, dịch vụ nhận bán đại lý và doanh thu hoa hồng được hưởng từ hoạt động đại lý bán đúng giá quy định của bên giao đại lý hưởng hoa hồng của dịch vụ: bưu chính, viễn thông, bán vé xổ số, vé máy bay, ô tô, tàu hỏa, tàu thủy; đại lý vận tải quốc tế; đại lý của các dịch vụ ngành hàng không, hàng hải mà được áp dụng thuế suất thuế giá trị gia tăng 0%; đại lý bán bảo hiểm.
+
+b) Doanh thu hàng hóa, dịch vụ và doanh thu hoa hồng đại lý được hưởng từ hoạt động đại lý bán hàng hóa, dịch vụ thuộc diện không chịu thuế giá trị gia tăng.
+
+2. Đối với hàng hóa, dịch vụ được sử dụng hóa đơn thanh toán ghi giá thanh toán là giá đã có thuế giá trị gia tăng thì giá tính thuế được xác định theo công thức sau:
+
+Giá chưa có thuế giá trị gia tăng
+
+Giá thanh toán
+
+=
+
+1 + thuế suất của hàng hóa, dịch vụ (%)

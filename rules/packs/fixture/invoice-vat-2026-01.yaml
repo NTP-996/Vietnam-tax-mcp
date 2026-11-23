@@ -1,0 +1,45 @@
+# FIXTURE PACK — the pre-cutover twin of invoice-vat-2026-07.yaml: same treatment, a version
+# that ends on 2026-06-30, so a June-2026 transaction and a July-2026 transaction resolve to two
+# different pack versions by date alone. Not a legal
+# citation; see the 2026-07 file.
+legal_doc: FIXTURE
+article: 'Điều 0'
+title: 'Fixture — VAT invoice postings under the TT 133 chart (before the 2026-07-01 cutover)'
+version: fixture-invoice-vat@2026-01
+regime: TT133
+effective_from: 2026-01-01
+effective_to: 2026-06-30
+rules:
+  - id: input-invoice-vat
+    citation: 'FIXTURE, Điều 0 (until 2026-06-30) — placeholder until the verified pack'
+    when:
+      document: invoice
+      direction: input
+      vat_rates: ['10', '8', '5', '0']
+    counterpart_default: '642'
+    lines:
+      - account: '{counterpart}'
+        side: debit
+        amount: subtotal
+      - account: '1331'
+        side: debit
+        amount: vat
+      - account: '331'
+        side: credit
+        amount: total
+  - id: output-invoice-vat
+    citation: 'FIXTURE, Điều 0 (until 2026-06-30) — placeholder until the verified pack'
+    when:
+      document: invoice
+      direction: output
+      vat_rates: ['10', '8', '5', '0']
+    lines:
+      - account: '131'
+        side: debit
+        amount: total
+      - account: '511'
+        side: credit
+        amount: subtotal
+      - account: '3331'
+        side: credit
+        amount: vat

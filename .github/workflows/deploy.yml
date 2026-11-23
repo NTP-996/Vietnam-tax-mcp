@@ -1,0 +1,185 @@
+# deploy — the tax-law MCP server to a VPS over SSH. On a tag `v*`:
+# build the image with the corpus and the packs, scan it with trivy,
+# push <tag> and sha-<short> to GHCR, recreate the compose project
+# and probe https://$MCP_HOST/healthz until server_version equals
+# the tag. A failed probe rolls back to the previous tag. A manual
+# rollback is workflow_dispatch with an existing tag.
+#
+# GitHub environment `mcp-production` (protected) — secrets:
+# MCP_SSH_HOST, MCP_SSH_USER, MCP_SSH_KEY, MCP_SSH_KNOWN_HOSTS,
+# ACME_EMAIL, STATS_PASSWORD; variables: MCP_HOST, MCP_DEPLOY_PATH
+# (e.g. /opt/vietnam-tax-mcp). The server stores no data, so there is
+# nothing to migrate or restore.
+name: deploy-mcp
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: 'Existing image tag to deploy (e.g. v0.1.0) — a rollback; nothing is built'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: deploy-mcp
+  cancel-in-progress: false
+
+env:
+  REGISTRY: ghcr.io
+
+jobs:
+  build:
+    if: github.event_name == 'push'
+    name: build · scan · push
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Load toolchain pins
+        run: grep -Ev '^(#|$)' versions.env >> "$GITHUB_ENV"
+
+      - name: Image name
+        id: image
+        run: |
+          repo="${GITHUB_REPOSITORY,,}"
+          echo "name=${REGISTRY}/${repo}" >> "$GITHUB_OUTPUT"
+          echo "short=${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
+
+      - uses: docker/setup-buildx-action@v4
+
+      - uses: docker/login-action@v4
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build for scanning
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          file: Dockerfile
+          build-args: |
+            GO_IMAGE=${{ env.GO_IMAGE }}
+            VERSION=${{ github.ref_name }}
+          load: true
+          push: false
+          tags: mcp:scan
+          cache-from: type=gha,scope=mcp
+          cache-to: type=gha,scope=mcp,mode=max
+
+      - name: trivy (CRITICAL and HIGH block the push)
+        uses: aquasecurity/trivy-action@0.36.0
+        with:
+          image-ref: mcp:scan
+          format: table
+          exit-code: '1'
+          ignore-unfixed: true
+          severity: CRITICAL,HIGH
+
+      - name: Push
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          file: Dockerfile
+          build-args: |
+            GO_IMAGE=${{ env.GO_IMAGE }}
+            VERSION=${{ github.ref_name }}
+          push: true
+          tags: |
+            ${{ steps.image.outputs.name }}:${{ github.ref_name }}
+            ${{ steps.image.outputs.name }}:sha-${{ steps.image.outputs.short }}
+          cache-from: type=gha,scope=mcp
+
+  deploy:
+    needs: [build]
+    # Runs after a successful build, or alone for a workflow_dispatch rollback.
+    if: always() && (needs.build.result == 'success' || github.event_name == 'workflow_dispatch')
+    name: mcp-production
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: mcp-production
+      url: https://${{ vars.MCP_HOST }}/healthz
+    env:
+      DEPLOY_PATH: ${{ vars.MCP_DEPLOY_PATH }}
+      SSH_TARGET: ${{ secrets.MCP_SSH_USER }}@${{ secrets.MCP_SSH_HOST }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Load toolchain pins
+        run: grep -Ev '^(#|$)' versions.env >> "$GITHUB_ENV"
+
+      - name: Resolve the tag and the image
+        id: tag
+        env:
+          INPUT_TAG: ${{ inputs.image_tag }}
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          echo "image_tag=${INPUT_TAG:-$REF_NAME}" >> "$GITHUB_OUTPUT"
+          repo="${GITHUB_REPOSITORY,,}"
+          echo "image_repo=${REGISTRY}/${repo}" >> "$GITHUB_OUTPUT"
+
+      - uses: webfactory/ssh-agent@v0.10.0
+        with:
+          ssh-private-key: ${{ secrets.MCP_SSH_KEY }}
+
+      - name: Trust the host key
+        env:
+          KNOWN_HOSTS: ${{ secrets.MCP_SSH_KNOWN_HOSTS }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+
+      - name: Ship the compose file
+        run: |
+          ssh "$SSH_TARGET" mkdir -p "$DEPLOY_PATH"
+          rsync -az deploy/compose.yml "$SSH_TARGET:$DEPLOY_PATH/mcp.yml"
+
+      - name: Pull, recreate, probe, roll back on failure
+        env:
+          IMAGE_TAG: ${{ steps.tag.outputs.image_tag }}
+          IMAGE_REPO: ${{ steps.tag.outputs.image_repo }}
+          MCP_HOST: ${{ vars.MCP_HOST }}
+          ACME_EMAIL: ${{ secrets.ACME_EMAIL }}
+          STATS_PASSWORD: ${{ secrets.STATS_PASSWORD }}
+        run: |
+          # Secrets travel on stdin, never on the command line.
+          printf 'MCP_HOST=%s\nACME_EMAIL=%s\nSTATS_PASSWORD=%s\n' "$MCP_HOST" "$ACME_EMAIL" "$STATS_PASSWORD" |
+            ssh "$SSH_TARGET" "umask 077 && cat > '$DEPLOY_PATH/.env'"
+          ssh "$SSH_TARGET" bash -s -- "$DEPLOY_PATH" "$IMAGE_REPO" "$IMAGE_TAG" "$TRAEFIK_IMAGE" <<'REMOTE'
+          set -euo pipefail
+          path="$1"; repo="$2"; tag="$3"; traefik="$4"
+          cd "$path"
+          [ -f deploy.env ] && cp deploy.env previous.env
+          printf 'IMAGE_REPO=%s\nIMAGE_TAG=%s\nTRAEFIK_IMAGE=%s\n' "$repo" "$tag" "$traefik" > deploy.env
+          compose() { docker compose -p vietnam-tax-mcp -f mcp.yml --env-file .env --env-file "$1" "${@:2}"; }
+          host="$(grep '^MCP_HOST=' .env | cut -d= -f2-)"
+          probe() {
+            for _ in $(seq 1 30); do
+              if curl -fsS --max-time 5 "https://$host/healthz" | grep -q "\"server_version\":\"$1\""; then return 0; fi
+              sleep 2
+            done
+            return 1
+          }
+          compose deploy.env pull
+          compose deploy.env up -d --remove-orphans
+          if probe "$tag"; then
+            echo "mcp $tag is live"
+            exit 0
+          fi
+          previous="(none)"
+          if [ -f previous.env ]; then
+            previous="$(grep '^IMAGE_TAG=' previous.env | cut -d= -f2-)"
+            cp previous.env deploy.env
+            compose deploy.env up -d --remove-orphans
+          fi
+          echo "::error::mcp $tag failed its health probe; rolled back to $previous"
+          exit 1
+          REMOTE

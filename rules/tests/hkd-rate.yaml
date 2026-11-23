@@ -1,0 +1,95 @@
+# Expected results for the HKD rate pack (rules/packs/nd-68-2026/dieu-3.yaml). Boundary:
+# 2026-01-01 (the pack's start; the khoán era before has no pack). The pack has no PIT (tncn) row:
+# Luật 109/2025/QH15 is not in the corpus. UNVERIFIED pack.
+kind: rate
+cases:
+  - name: HKD VAT on distribution, first day of the pack
+    request:
+      {
+        regime: HKD,
+        date: 2026-01-01,
+        tax: gtgt,
+        method: ty_le_doanh_thu,
+        activity_group: phan_phoi,
+        revenue_minor: 300000000,
+      }
+    expect:
+      {
+        pack_version: hkd-rate@2026-01,
+        row_id: hkd-gtgt-phan-phoi,
+        rate_bp: 100,
+        amount_minor: 3000000,
+      }
+  - name: HKD VAT the day before the pack has no rule
+    request:
+      {
+        regime: HKD,
+        date: 2025-12-31,
+        tax: gtgt,
+        method: ty_le_doanh_thu,
+        activity_group: phan_phoi,
+        revenue_minor: 300000000,
+      }
+    expect: {error: rule_not_found}
+  - name: HKD VAT on services after the cutover
+    request:
+      {
+        regime: HKD,
+        date: 2026-09-30,
+        tax: gtgt,
+        method: ty_le_doanh_thu,
+        activity_group: dich_vu,
+        revenue_minor: 200000000,
+      }
+    expect:
+      {
+        pack_version: hkd-rate@2026-01,
+        row_id: hkd-gtgt-dich-vu,
+        rate_bp: 500,
+        amount_minor: 10000000,
+      }
+  - name: HKD VAT on production and transport
+    request:
+      {
+        regime: HKD,
+        date: 2026-12-31,
+        tax: gtgt,
+        method: ty_le_doanh_thu,
+        activity_group: san_xuat_van_tai,
+        revenue_minor: 333333333,
+      }
+    expect:
+      {
+        pack_version: hkd-rate@2026-01,
+        row_id: hkd-gtgt-san-xuat,
+        rate_bp: 300,
+        amount_minor: 10000000,
+      }
+  - name: HKD VAT on other activities
+    request:
+      {
+        regime: HKD,
+        date: 2026-06-30,
+        tax: gtgt,
+        method: ty_le_doanh_thu,
+        activity_group: khac,
+        revenue_minor: 1,
+      }
+    expect:
+      {
+        pack_version: hkd-rate@2026-01,
+        row_id: hkd-gtgt-khac,
+        rate_bp: 200,
+        amount_minor: 0,
+      }
+  - name: HKD PIT has no row (Luật 109/2025/QH15 not in the corpus)
+    request:
+      {
+        regime: HKD,
+        date: 2026-09-30,
+        tax: tncn,
+        method: ty_le_doanh_thu,
+        activity_group: phan_phoi,
+        revenue_minor: 300000000,
+      }
+    expect: {error: rule_not_found}

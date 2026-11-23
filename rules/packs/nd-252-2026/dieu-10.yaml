@@ -1,0 +1,57 @@
+# UNVERIFIED (verified: false) — filing deadlines of the general regime, from
+# legal/corpus/nd-252-2026/dieu-10.md (NĐ 252/2026/NĐ-CP, the main decree under Luật Quản lý thuế
+# 108/2025/QH15), not yet signed off by the reviewing accountant.
+#
+# - khoản 2: thuế khai theo tháng — chậm nhất là ngày thứ 20 của tháng tiếp theo.
+# - khoản 3: thuế khai theo quý — chậm nhất là ngày cuối cùng của tháng đầu của quý tiếp theo.
+# - Holiday shift: Điều 3 khoản 7 (legal/corpus/nd-252-2026/dieu-3.md) — a deadline on a ngày nghỉ
+#   moves to the next working day. The public holidays themselves come from the official notices,
+#   which are not in the corpus, so `holidays` is empty: only Saturdays and Sundays shift.
+# - Which taxes are declared monthly or quarterly (Điều 9) is not modelled here: the caller names
+#   the period. Khoản 9 sends HKD to NĐ 68/2026 (rules/packs/nd-68-2026/dieu-8.yaml).
+# - Periods ending before 2026-07-01 fall under NĐ 126/2020/NĐ-CP, which is not in the corpus, and
+#   answer no_match.
+kind: deadline
+legal_doc: 'NĐ 252/2026/NĐ-CP'
+article: 'Điều 10'
+title: 'Thời hạn nộp hồ sơ khai thuế'
+version: qlt-deadline@2026-07
+regime: QLT
+effective_from: 2026-07-01
+effective_to: null
+verified: false
+verified_by: null
+deadlines:
+  - id: dn-gtgt-thang
+    citation: 'NĐ 252/2026/NĐ-CP, Điều 10, khoản 2 — effective 2026-07-01'
+    corpus: 'nd-252-2026/dieu-10'
+    tax: gtgt
+    entity_types: [dn]
+    period: month
+    due: {rule: day_of_month, months_after_period: 1, day: 20}
+  - id: dn-gtgt-quy
+    citation: 'NĐ 252/2026/NĐ-CP, Điều 10, khoản 3 — effective 2026-07-01'
+    corpus: 'nd-252-2026/dieu-10'
+    tax: gtgt
+    entity_types: [dn]
+    period: quarter
+    due: {rule: last_day_of_month, months_after_period: 1}
+  - id: dn-tncn-thang
+    citation: 'NĐ 252/2026/NĐ-CP, Điều 10, khoản 2 — effective 2026-07-01'
+    corpus: 'nd-252-2026/dieu-10'
+    tax: tncn
+    entity_types: [dn]
+    period: month
+    due: {rule: day_of_month, months_after_period: 1, day: 20}
+  - id: dn-tncn-quy
+    citation: 'NĐ 252/2026/NĐ-CP, Điều 10, khoản 3 — effective 2026-07-01'
+    corpus: 'nd-252-2026/dieu-10'
+    tax: tncn
+    entity_types: [dn]
+    period: quarter
+    due: {rule: last_day_of_month, months_after_period: 1}
+holiday_shift:
+  citation: 'NĐ 252/2026/NĐ-CP, Điều 3, khoản 7 — effective 2026-07-01'
+  corpus: 'nd-252-2026/dieu-3'
+  rule: next_working_day
+  holidays: []

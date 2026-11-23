@@ -1,0 +1,162 @@
+# UNVERIFIED (verified: false) — the required content of an e-invoice, from
+# legal/corpus/nd-254-2026/dieu-10.md (NĐ 254/2026/NĐ-CP Điều 10 khoản 1), not yet signed off by
+# the reviewing accountant. Labels are the article's wording; paths point into the canonical
+# invoice of services/core/internal/einvoice.
+#
+# Not modelled (left out on purpose, listed in DESIGN.md §16):
+# - điểm a "Tên hóa đơn" — the canonical invoice has no field for the printed name yet;
+# - điểm e (signatures), h (thời điểm ký số) and i (mã của cơ quan thuế) — they are set when the
+#   invoice is signed and issued, so a draft cannot carry them;
+# - điểm k and khoản 2 (fees, discounts, script and currency) — conditional ("nếu có");
+# - khoản 3 and the Phụ lục — the cases where an invoice need not carry every item, so a draft
+#   for one of them may show a "missing" item that the Phụ lục excuses;
+# - khoản 4 (cash-register invoices) — a different content list;
+# - for a buyer who is an individual, điểm d allows mã số thuế or số định danh cá nhân: only the
+#   business buyer's MST is checked (format only, no look-up of any register).
+#
+# Before 2026-07-01 the content rule is NĐ 123/2020/NĐ-CP Điều 10, not in the corpus: no_match.
+kind: invoice_fields
+legal_doc: 'NĐ 254/2026/NĐ-CP'
+article: 'Điều 10'
+title: 'Nội dung của hóa đơn'
+version: hddt-fields@2026-07
+regime: HDDT
+effective_from: 2026-07-01
+effective_to: null
+verified: false
+verified_by: null
+fields:
+  - id: ky-hieu-mau-so
+    citation: 'NĐ 254/2026/NĐ-CP, Điều 10, khoản 1, điểm a — effective 2026-07-01'
+    corpus: 'nd-254-2026/dieu-10'
+    path: form
+    label: 'Ký hiệu mẫu số hóa đơn'
+    required: always
+    check: present
+  - id: ky-hieu-hoa-don
+    citation: 'NĐ 254/2026/NĐ-CP, Điều 10, khoản 1, điểm a — effective 2026-07-01'
+    corpus: 'nd-254-2026/dieu-10'
+    path: series
+    label: 'Ký hiệu hóa đơn'
+    required: always
+    check: present
+  - id: so-hoa-don
+    citation: 'NĐ 254/2026/NĐ-CP, Điều 10, khoản 1, điểm b — effective 2026-07-01'
+    corpus: 'nd-254-2026/dieu-10'
+    path: number
+    label: 'Số hóa đơn'
+    required: always
+    check: present
+  - id: ten-nguoi-ban
+    citation: 'NĐ 254/2026/NĐ-CP, Điều 10, khoản 1, điểm c — effective 2026-07-01'
+    corpus: 'nd-254-2026/dieu-10'
+    path: seller.name
+    label: 'Tên của người bán'
+    required: always
+    check: present
+  - id: dia-chi-nguoi-ban
+    citation: 'NĐ 254/2026/NĐ-CP, Điều 10, khoản 1, điểm c — effective 2026-07-01'
+    corpus: 'nd-254-2026/dieu-10'
+    path: seller.address
+    label: 'Địa chỉ của người bán'
+    required: always
+    check: present
+  - id: mst-nguoi-ban
+    citation: 'NĐ 254/2026/NĐ-CP, Điều 10, khoản 1, điểm c — effective 2026-07-01'
+    corpus: 'nd-254-2026/dieu-10'
+    path: seller.mst
+    label: 'Mã số thuế của người bán'
+    required: always
+    check: mst
+  - id: ten-nguoi-mua
+    citation: 'NĐ 254/2026/NĐ-CP, Điều 10, khoản 1, điểm d — effective 2026-07-01'
+    corpus: 'nd-254-2026/dieu-10'
+    path: buyer.name
+    label: 'Tên của người mua'
+    required: always
+    check: present
+  - id: dia-chi-nguoi-mua
+    citation: 'NĐ 254/2026/NĐ-CP, Điều 10, khoản 1, điểm d — effective 2026-07-01'
+    corpus: 'nd-254-2026/dieu-10'
+    path: buyer.address
+    label: 'Địa chỉ của người mua'
+    required: always
+    check: present
+  - id: mst-nguoi-mua
+    citation: 'NĐ 254/2026/NĐ-CP, Điều 10, khoản 1, điểm d — effective 2026-07-01'
+    corpus: 'nd-254-2026/dieu-10'
+    path: buyer.mst
+    label: 'Mã số thuế của người mua'
+    required: when
+    when: {buyer_kind: business}
+    check: mst
+  - id: ten-hang-hoa
+    citation: 'NĐ 254/2026/NĐ-CP, Điều 10, khoản 1, điểm đ — effective 2026-07-01'
+    corpus: 'nd-254-2026/dieu-10'
+    path: lines[].name
+    label: 'Tên hàng hóa, dịch vụ'
+    required: always
+    check: present
+  - id: don-vi-tinh
+    citation: 'NĐ 254/2026/NĐ-CP, Điều 10, khoản 1, điểm đ — effective 2026-07-01'
+    corpus: 'nd-254-2026/dieu-10'
+    path: lines[].unit
+    label: 'Đơn vị tính'
+    required: always
+    check: present
+  - id: so-luong
+    citation: 'NĐ 254/2026/NĐ-CP, Điều 10, khoản 1, điểm đ — effective 2026-07-01'
+    corpus: 'nd-254-2026/dieu-10'
+    path: lines[].quantity
+    label: 'Số lượng'
+    required: always
+    check: present
+  - id: don-gia
+    citation: 'NĐ 254/2026/NĐ-CP, Điều 10, khoản 1, điểm đ — effective 2026-07-01'
+    corpus: 'nd-254-2026/dieu-10'
+    path: lines[].unit_price
+    label: 'Đơn giá hàng hóa, dịch vụ'
+    required: always
+    check: present
+  - id: thanh-tien-chua-thue
+    citation: 'NĐ 254/2026/NĐ-CP, Điều 10, khoản 1, điểm đ — effective 2026-07-01'
+    corpus: 'nd-254-2026/dieu-10'
+    path: lines[].amount_minor
+    label: 'Thành tiền chưa có thuế giá trị gia tăng'
+    required: always
+    check: non_negative_int
+  - id: thue-suat
+    citation: 'NĐ 254/2026/NĐ-CP, Điều 10, khoản 1, điểm đ — effective 2026-07-01'
+    corpus: 'nd-254-2026/dieu-10'
+    path: lines[].vat_rate
+    label: 'Thuế suất thuế giá trị gia tăng'
+    required: always
+    check: present
+  - id: tien-thue-theo-thue-suat
+    citation: 'NĐ 254/2026/NĐ-CP, Điều 10, khoản 1, điểm đ — effective 2026-07-01'
+    corpus: 'nd-254-2026/dieu-10'
+    path: vat_rates
+    label: 'Tổng số tiền thuế giá trị gia tăng theo từng loại thuế suất'
+    required: always
+    check: present
+  - id: tong-tien-thue
+    citation: 'NĐ 254/2026/NĐ-CP, Điều 10, khoản 1, điểm đ — effective 2026-07-01'
+    corpus: 'nd-254-2026/dieu-10'
+    path: vat_minor
+    label: 'Tổng cộng tiền thuế giá trị gia tăng'
+    required: always
+    check: non_negative_int
+  - id: tong-tien-thanh-toan
+    citation: 'NĐ 254/2026/NĐ-CP, Điều 10, khoản 1, điểm đ — effective 2026-07-01'
+    corpus: 'nd-254-2026/dieu-10'
+    path: total_minor
+    label: 'Tổng tiền thanh toán đã có thuế giá trị gia tăng'
+    required: always
+    check: positive_int
+  - id: thoi-diem-lap
+    citation: 'NĐ 254/2026/NĐ-CP, Điều 10, khoản 1, điểm g — effective 2026-07-01'
+    corpus: 'nd-254-2026/dieu-10'
+    path: issued_on
+    label: 'Thời điểm lập hóa đơn'
+    required: always
+    check: date
